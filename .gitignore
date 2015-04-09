@@ -1,7 +1,2 @@
-.DS_Store
-.sass-cache
-*.db
-build
-bower_components/
+build/
 node_modules/
-Desktop.ini
