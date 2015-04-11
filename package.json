@@ -43,7 +43,7 @@
     "watchify": "~0.10.1"
   },
   "scripts": {
-    "start": "node ./node_modules/gulp/bin/gulp.js",
+    "start": "node ./build/server.js",
     "build": "node ./node_modules/gulp/bin/gulp.js build"
   }
 }
