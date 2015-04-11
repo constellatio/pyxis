@@ -1,3 +1,46 @@
+LEVELS = [
+  {
+    name: 'The Plough',
+    numStars: 7,
+    starsArray: [
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+    ]
+  },
+  {
+    name: 'The Plough',
+    numStars: 7,
+    starsArray: [
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+    ]
+  },
+  {
+    name: 'The Plough',
+    numStars: 7,
+    starsArray: [
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+    ]
+  },
+]
+
+
 class Game
 
   @player = null 
@@ -14,6 +57,9 @@ class Game
     @game.add.sprite 0, 0, 'Plough'
     @star = @add.sprite @starx, @stary, 'unlitstar'
     @player = @add.sprite x, y, 'player'
+
+    #add sounds
+    @soundSputnik = @game.add.audio 'soundSputnik'
 
     #setup game input/output
     @input.onDown.add @onInputDown, this
@@ -46,16 +92,21 @@ class Game
      	   @printed = false
 
      if @cursors.left.isDown
-     	@player.body.moveLeft(200)
+        @player.body.moveLeft(200)
      else if @cursors.right.isDown
-     	@player.body.moveRight(200)
+        @player.body.moveRight(200)
      if @cursors.up.isDown
-     	@player.body.moveUp(200)
+        @player.body.moveUp(200)
      else if @cursors.down.isDown
-     	@player.body.moveDown(200)
+        @player.body.moveDown(200)
+        #@soundSputnik.play()           Plays A Sound
 
   onInputDown: ->
     @game.state.start 'menu'
+
+
+
+  drawConstellation: (numStars, starsArray) ->
 
 
 module.exports = Game

@@ -12,6 +12,8 @@ class Preloader
     @load.image 'Plough', 'assets/images/Plough.png'
     @load.image 'litstar', 'assets/images/lit.png'
     @load.image 'unlitstar', 'assets/images/unlit.png'
+    @load.image 'star', 'assets/images/star.png'
+    @load.audio 'soundSputnik', 'assets/sounds/sputnik.ogg'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
     
 
