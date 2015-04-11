@@ -53,8 +53,17 @@ class Game
   @successTxt = null
 
   create: ->
-    #setup game window
     @levelnum = 0
+    @drawLevel(@levelnum)
+    @input.onDown.add @onDown, this
+
+  onDown: ->
+    if @levelcomplete
+       @levelnum++
+       @drawLevel(@levelnum)
+
+  drawLevel: (@levelnum) ->
+    #setup game window
     @level = LEVELS[@levelnum]
     x = @level.starsArray[@level.startingStar].x
     y = @level.starsArray[@level.startingStar].y
@@ -72,7 +81,7 @@ class Game
     #@soundSputnik = @game.add.audio 'soundSputnik'
 
     #setup game input/output
-    @input.onDown.add @onInputDown, this
+    #@input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
 
     #setup game physics
@@ -95,18 +104,19 @@ class Game
      	 @ydistance = Math.abs(@player.y - star.y)
 
      	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
-        #if Player on star
-     	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
+            #if Player on star
+            @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else
-       #if Player not on star
+            #if Player not on star
+            @game.Tween.removeAllTweens();
+            @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
 
-     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
      	 if won
      	    if star.alpha < 0.35
      	       won = false
 
      if won
-     	@add.text(10, 10, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
+     	@add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
      	@levelcomplete = true
 
      if @cursors.left.isDown
@@ -119,12 +129,6 @@ class Game
         @player.body.y += 5
         #Plays A Sound
         #@soundSputnik.play()
-
-
-  onInputDown: ->
-    @game.state.start 'menu'
-
-
 
   drawConstellation: (level) ->
      console.log @constellation
