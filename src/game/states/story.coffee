@@ -11,6 +11,10 @@ class Story
 
         @t.y = @t.y - 0.45
 
+        #@newColour = @t.font;
+        #@newColour.fill = '#8B0000';
+        #@t.setStyle @newColour;
+
     onDown: ->
 
         @game.state.start 'game'
