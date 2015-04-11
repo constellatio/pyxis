@@ -51,8 +51,17 @@ class Game
   @player = null 
 
   create: ->
-    #setup game window
     @levelnum = 0
+    @drawLevel(@levelnum)
+    @input.onDown.add @onDown, this
+
+  onDown: ->
+    if @levelcomplete
+       @levelnum++
+       @drawLevel(@levelnum)
+
+  drawLevel: (@levelnum) ->
+    #setup game window
     @level = LEVELS[@levelnum]
     x = @level.starsArray[@level.startingStar].x
     y = @level.starsArray[@level.startingStar].y
