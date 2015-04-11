@@ -28,10 +28,10 @@ console.log('http://' + addresses[0] + ':8081/pyxis')
 
 server.listen(8081)
 app.get '/', (req, res) ->
-	res.render('index', {host:addresses[0]})
+	res.render('client', {host:addresses[0]})
 app.get '/pyxis', (req, res) ->
 	res.render('display', {host:addresses[0]})
-app.use('/static', express.static(__dirname + '/static'))
+app.use '', express.static(__dirname)
 
 # Configure the socket.io
 io.sockets.on 'connection', (socket) ->

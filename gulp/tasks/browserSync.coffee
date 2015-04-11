@@ -3,5 +3,5 @@ gulp = require 'gulp'
 
 gulp.task 'browserSync', ['build'], ->
   browserSync.init ['build/**'],
-    server:
-      baseDir: 'build'
+    proxy: 'localhost:8081'
+    startPath: '/pyxis'
