@@ -117,7 +117,7 @@ class Game
   drawConstellation: (level) ->
     level.name
     for star in level.starsArray
-        @add.sprite star.x, star.y, 'star'
+        @add.sprite star.x, star.y, 'litstar'
 
 
 
