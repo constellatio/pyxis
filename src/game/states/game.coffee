@@ -70,7 +70,7 @@ class Game
     #@soundSputnik = @game.add.audio 'soundSputnik'
 
     #setup game input/output
-    @input.onDown.add @onInputDown, this
+    #@input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
 
     #setup game physics
@@ -93,8 +93,8 @@ class Game
      	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
        #if Player not on star
-
      	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
+
      	 if won
      	    if star.alpha < 0.35
      	       won = false
@@ -113,12 +113,6 @@ class Game
         @player.body.moveDown(200) 
         #Plays A Sound
         #@soundSputnik.play()           
-
-
-  onInputDown: ->
-    @game.state.start 'menu'
-
-
 
   drawConstellation: (level) ->
      console.log @constellation
