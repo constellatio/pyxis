@@ -33,6 +33,8 @@ connect = (game, player) ->
       controller.y = Math.max(controller.y, 0)
 
       #if index == 0
+      #player.body.x = controller.x
+      #player.body.y = controller.y
       game.physics.arcade.moveToXY(player, controller.x, controller.y, 0, 100)
 
       #      particle = gl.getUniformLocation gl.shaderProgram, 'u_positions[' + (index + 1) + ']'

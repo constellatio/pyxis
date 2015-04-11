@@ -100,33 +100,38 @@ class Game
 
      won = true
      for star, i in @constellation
-     	 @xdistance = Math.abs(@player.x - star.x)
-     	 @ydistance = Math.abs(@player.y - star.y)
+         @xdistance = Math.abs(@player.x - star.x)
+         @ydistance = Math.abs(@player.y - star.y)
 
-     	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
+         if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
             #if Player on star
-            @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
-     	 else
+            if not star.active
+                @game.tweens.removeFrom(star)
+                @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
+                star.active = true
+         else
             #if Player not on star
-            @game.Tween.removeAllTweens();
-            @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
+            if star.active
+                @game.tweens.removeFrom(star)
+                @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
+                star.active = false
 
-     	 if won
-     	    if star.alpha < 0.35
-     	       won = false
+         if won
+            if star.alpha < 0.35
+               won = false
 
      if won
-     	@add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
-     	@levelcomplete = true
+        @add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
+        @levelcomplete = true
 
      if @cursors.left.isDown
-        @player.body.x -= 5
+        @player.body.x -= 4
      else if @cursors.right.isDown
-        @player.body.x += 5
+        @player.body.x += 4
      if @cursors.up.isDown
-        @player.body.y -= 5
+        @player.body.y -= 4
      else if @cursors.down.isDown
-        @player.body.y += 5
+        @player.body.y += 4
         #Plays A Sound
         #@soundSputnik.play()
 
