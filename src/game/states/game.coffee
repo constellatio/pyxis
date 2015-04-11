@@ -4,16 +4,22 @@ class Game
   @successTxt = null
 
   create: ->
-    @game.add.sprite 0, 0, 'Plough'
+    #setup game window
     x = @game.width / 3
-    y = @game.height / 2
+    y = @game.height / 2   
     @starx = @game.width / 2
     @stary = @game.height / 2
+
+    #add Sprites
+    @game.add.sprite 0, 0, 'Plough'
     @star = @add.sprite @starx, @stary, 'star'
     @player = @add.sprite x, y, 'player'
 
+    #setup game input/output
+    @input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
 
+    #setup game physics
     @game.physics.startSystem Phaser.Physics.P2JS
     @game.physics.p2.enable @player
     @game.physics.p2.defaultRestitution = 0.8
@@ -38,14 +44,14 @@ class Game
      	@printed = false
 
      if @cursors.left.isDown
-     	@player.body.moveLeft(100)
+     	@player.body.moveLeft(200)
      else if @cursors.right.isDown
-     	@player.body.moveRight(100)
+     	@player.body.moveRight(200)
      if @cursors.up.isDown
-     	@player.body.moveUp(100)
+     	@player.body.moveUp(200)
      else if @cursors.down.isDown
-     	@player.body.moveDown(100)
-	
+     	@player.body.moveDown(200)
+
   onInputDown: ->
     @game.state.start 'menu'
 
