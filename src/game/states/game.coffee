@@ -76,16 +76,23 @@ class Game
   update: ->
      @player.body.setZeroVelocity()
 
+     won = true
      for star, i in @constellation
      	 @xdistance = Math.abs(@player.x - star.x)
      	 @ydistance = Math.abs(@player.y - star.y)
 
      	 if @xdistance < 20 && @ydistance < 20 
         #if Player on star
-     	       @game.add.tween(@star).to({alpha:0.1},1000,Phaser.Easing.Cubic.Out,true)
+     	       @game.add.tween(star).to({alpha:1},100,Phaser.Easing.Cubic.Out,true)
      	 else 
        #if Player not on star
-     	       @game.add.tween(@star).to({alpha:0.1},3000,Phaser.Easing.Cubic.Out,true)
+     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Cubic.Out,true)
+     	 if won
+     	    if star.alpha < 0.35
+     	       won = false
+         
+     if won
+     	@add.text(10, 10, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
