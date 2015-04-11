@@ -80,6 +80,19 @@ class Game
      	 @xdistance = Math.abs(@player.x - star.x)
      	 @ydistance = Math.abs(@player.y - star.y)
 
+<<<<<<< HEAD
+      #if Player on star
+     if @xdistance < 10 && @ydistance < 10 
+        if not @printed
+     	   @star.alpha = 1
+     	   @printed = true
+      #else if Player not on star
+     else 
+        if @printed
+         @game.add.tween(@star).to({alpha:0.1},3000,Phaser.Easing.Cubic.Out,true)
+     	   #@star.alpha = 0.1
+     	   @printed = false
+=======
      	 if @xdistance < 20 && @ydistance < 20 
      	       star.alpha = 1
      	 else 
