@@ -1,6 +1,6 @@
 class Game
 
-  @player = null 
+  @player = null
 
   create: ->
     @game.add.sprite 0, 0, 'Plough'
@@ -37,7 +37,7 @@ class Game
      	@player.body.moveUp(0)
      	@player.body.moveLeft(0)
      	@player.body.moveRight(0)
-	
+
   onInputDown: ->
     @game.state.start 'menu'
 

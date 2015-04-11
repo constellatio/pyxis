@@ -12,7 +12,6 @@ class Preloader
     @load.image 'Plough', 'assets/images/Plough.png'
     @load.image 'star', 'assets/images/star.png'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
-    
 
   create: ->
     @asset.cropEnabled = false
