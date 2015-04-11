@@ -52,24 +52,16 @@ class Game
     x = @game.width / 3
     y = @game.height / 2   
 
-
-
     #add Sprites
     @game.add.sprite 0, 0, 'Plough'
-    @star = @add.sprite @starx, @stary, 'unlitstar'
     #Plot empty stars
-    @drawConstellation(LEVELS[0])
-    @star = @add.sprite @starx, @stary, 'litstar'
     @player = @add.sprite x, y, 'player'
     @constellation = []
     @printed = []
-
-
-    
+    @drawConstellation(LEVELS[0])
 
     #add sounds
     #@soundSputnik = @game.add.audio 'soundSputnik'
-
 
     #setup game input/output
     @input.onDown.add @onInputDown, this
@@ -81,7 +73,6 @@ class Game
     @game.physics.p2.defaultRestitution = 0.8
     @player.body.fixedRotation = true
     @player.body.setZeroDamping()
-
 
   update: ->
      @player.body.setZeroVelocity()
