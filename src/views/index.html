@@ -1,0 +1,80 @@
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0">
+	<style>
+	    html, body { margin: 0; overflow: hidden; width: 100%; height: 100%; background: #222; }
+	    div#container { background-color: transparent; position: absolute; z-index: 1000; left: 0; right: 0; top: 0; bottom: 0; }
+	    p#message { transform-origin: 0 0; margin: 0; color: #fff; text-align: center; font-family: sans-serif; opacity: 0.5; font-size: 400%; }
+	</style>
+</head>
+<body>
+<div id="container">
+<p id="message">Loaded</p>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  	var socket = io.connect('http://{{host}}:8081');
+  	var message = document.getElementById('message');
+  	var portrait = window.innerWidth / window.innerHeight < 1;
+  	var rotated = false;
+	function rotateMessage() {		    
+			message.style.lineHeight = (portrait ? window.innerWidth : window.innerHeight) + 'px';
+	    	var rotation = portrait ? 90 : 0 + rotated ? 180 : 0;
+	    	var transform = (portrait ? "translate(0, " + (window.innerHeight - window.innerWidth) / 2 + "px) " : "") + "rotate("+rotation+"deg)";
+		    message.style.webkitTransform = transform;
+		    message.style.MozTransform = transform;
+			message.style.transform = transform;
+	}
+	rotateMessage();
+
+	window.addEventListener("resize", function() {
+		portrait = window.innerWidth / window.innerHeight < 1;
+		rotateMessage();
+	}, false);
+
+	if (window.DeviceMotionEvent) {
+		message.innerHTML = 'Tilt&nbsp;Me';
+
+    	window.addEventListener('devicemotion', function(event) {
+        	var x = event.accelerationIncludingGravity.x;
+			var y = event.accelerationIncludingGravity.y;
+            var z = event.accelerationIncludingGravity.z;
+            var r = event.rotationRate;
+		    socket.emit('tilt', { x:x, y:y, z:z, r:r });
+		    
+		    rotated = x < 0;
+		    rotateMessage();
+	  	}, false);
+	} else {
+  		message.innerHTML = 'Drag&nbsp;Me';
+  		var x = 0;
+  		var y = 0;
+  		var emitter;
+  		function touched(event) {
+  			var touch = event.changedTouches[0];
+  			var maxX = window.innerWidth / 2;
+  			var maxY = window.innerHeight / 2;
+  			var scaledX = (touch.clientX - maxX) / maxX * 9.81;
+  			var scaledY = (touch.clientY - maxY) / maxY * 9.81;
+			x = portrait ? -scaledX : scaledY;
+			y = portrait ? scaledY : scaledX;
+  			event.preventDefault();
+  		}
+  		window.addEventListener('touchstart', function(event) {
+  			touched(event);
+  			emitter = setInterval(function() {
+	  		    socket.emit('tilt', { x:x, y:y, z:0, r:null });			
+  			}, 100);
+  		}, false);
+  		window.addEventListener('touchmove', touched, false);
+  		window.addEventListener('touchend', function(event) {
+  			touched(event);
+  			clearInterval(emitter);
+  		}, false);
+	}
+	
+	
+</script>
+</body>
+</html>
+

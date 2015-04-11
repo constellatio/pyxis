@@ -19,12 +19,9 @@ swig.setDefaults({ cache: false })
 # Start up the server
 interfaces = os.networkInterfaces()
 addresses = []
-console.log interfaces
-for name,details in interfaces
-	console.log details
+for name, details of interfaces
 	for address in details
-		console.log address
-		if address.family == 'IPv4' && !address.internal && detail != 'v'
+		if address.family == 'IPv4' and !address.internal && name != 'v'
 			addresses.push(address.address)
 
 console.log('http://' + addresses[0] + ':8081/pyxis')
