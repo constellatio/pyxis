@@ -56,7 +56,9 @@ class Game
     @game.add.sprite 0, 0, 'background'
     #Plot empty stars
     @player = @add.sprite x, y, 'player'
+    @player.scale.set 0.5,0.5
     @constellation = []
+    @levelcomplete = false
     @drawConstellation(LEVELS[0])
 
     #add sounds
@@ -81,18 +83,20 @@ class Game
      	 @xdistance = Math.abs(@player.x - star.x)
      	 @ydistance = Math.abs(@player.y - star.y)
 
-     	 if @xdistance < 20 && @ydistance < 20 
+     	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
         #if Player on star
-     	       @game.add.tween(star).to({alpha:1},100,Phaser.Easing.Cubic.Out,true)
+     	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
        #if Player not on star
-     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Cubic.Out,true)
+
+     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
      	 if won
      	    if star.alpha < 0.35
      	       won = false
          
      if won
      	@add.text(10, 10, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
+     	@levelcomplete = true
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
@@ -117,6 +121,7 @@ class Game
         star = @add.sprite star.x, star.y, 'litstar'
         star.alpha = 0.3
         star.anchor.setTo 0.5, 0.5
+        star.scale.set 0.5, 0.5
         @constellation.push(star)
 
 module.exports = Game
