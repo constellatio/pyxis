@@ -1,6 +1,5 @@
 class Menu
 
-  @titleTxt = null
   @startTxt = null
   @mainMenuImage = null
 
