@@ -27,8 +27,8 @@ LEVELS = [
     ]
   },
   {
-    name: 'The Plough',
-    numStars: 9,
+    name: 'Bootes the Herdsman',
+    numStars: 8,
     startingStar: 0,
     starsArray: [
         {x: 381, y: 409},
@@ -37,9 +37,24 @@ LEVELS = [
         {x: 101, y: 31},
         {x: 222, y: 52},
         {x: 259, y: 210},
-        {x: 288, y: 544},
-        {x: 481, y: 397},
+        {x: 288, y: 544},        
         {x: 519, y: 440},
+    ]
+  },
+  {
+    name: 'Virgo',
+    numStars: 9,
+    startingStar: 0,
+    starsArray: [
+        {x: 76, y: 222},
+        {x: 204, y: 266},
+        {x: 321, y: 372},
+        {x: 252, y: 485},
+        {x: 456, y: 287},
+        {x: 391, y: 188},
+        {x: 357, y: 30},        
+        {x: 561, y: 271},
+        {x: 648, y: 230},
     ]
   },
   
@@ -67,11 +82,12 @@ class Game
     y = @level.starsArray[@level.startingStar].y
 
     #add Sprites
-    @game.add.sprite 0, 0, 'background'
+    @game.add.sprite 0, 0, 'background'    
     #Plot empty stars
     @constellation = []
     @levelcomplete = false
     @drawConstellation(@level)
+    @add.text(560, 595, @level.name, { font: "18px Arial", fill: "#FFFF00", align: "center" })
     @player = @add.sprite x, y, 'player'
     @player.scale.set 0.5,0.5
 
@@ -101,9 +117,15 @@ class Game
         #if Player on star
              @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
+<<<<<<< HEAD
+       #if Player not on star               
+     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
+               #@game.Tween.removeAllTweens();
+=======
        #if Player not on star
                @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
                #@game.Tween.removeAllTweens()
+>>>>>>> 693bfe230094cc82da6676c691012f62eadbed6c
      	 if won
      	    if star.alpha < 0.35
      	       won = false
