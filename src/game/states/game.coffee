@@ -2,6 +2,7 @@ LEVELS = [
   {
     name: 'The Little Dipper',
     numStars: 7,
+    startingStar: 0,
     starsArray: [
         {x: 309, y: 40},
         {x: 257, y: 125},
@@ -14,6 +15,7 @@ LEVELS = [
   },{
     name: 'The Big Dipper',
     numStars: 7,
+    startingStar: 0,
     starsArray: [
         {x: 46, y: 275},
         {x: 142, y: 200},
@@ -27,6 +29,7 @@ LEVELS = [
   {
     name: 'The Plough',
     numStars: 9,
+    startingStar: 0,
     starsArray: [
         {x: 381, y: 409},
         {x: 215, y: 286},
@@ -49,17 +52,19 @@ class Game
 
   create: ->
     #setup game window
-    x = @game.width / 3
-    y = @game.height / 2   
+    @levelnum = 0
+    @level = LEVELS[@levelnum]
+    x = @level.starsArray[@level.startingStar].x
+    y = @level.starsArray[@level.startingStar].y
 
     #add Sprites
     @game.add.sprite 0, 0, 'Plough'
     #Plot empty stars
-    @player = @add.sprite x, y, 'player'
-    @player.scale.set 0.5,0.5
     @constellation = []
     @levelcomplete = false
-    @drawConstellation(LEVELS[0])
+    @drawConstellation(@level)
+    @player = @add.sprite x, y, 'player'
+    @player.scale.set 0.5,0.5
 
     #add sounds
     #@soundSputnik = @game.add.audio 'soundSputnik'
@@ -117,9 +122,12 @@ class Game
 
   drawConstellation: (level) ->
      console.log @constellation
-     for star in level.starsArray
+     for star, i in level.starsArray
         star = @add.sprite star.x, star.y, 'litstar'
-        star.alpha = 0.3
+        if i == level.startingStar
+             star.alpha = 1
+        else
+             star.alpha = 0.3
         star.anchor.setTo 0.5, 0.5
         star.scale.set 0.5, 0.5
         @constellation.push(star)
