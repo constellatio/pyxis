@@ -58,7 +58,7 @@ class Game
 
     #add Sprites
     @game.add.sprite 0, 0, 'Plough'
-    @star = @add.sprite @starx, @stary, 'star'
+    @star = @add.sprite @starx, @stary, 'unlitstar'
     @player = @add.sprite x, y, 'player'
 
 
@@ -80,7 +80,6 @@ class Game
     @player.body.fixedRotation = true
     @player.body.setZeroDamping()
 
-    @successTxt = @add.text(200, 200, "Plink", { font: "65px Arial", fill: "#ff0044", align: "center" })
     @printed = false
 
   update: ->
@@ -91,11 +90,14 @@ class Game
 
      if @xdistance < 10 && @ydistance < 10 
         if not @printed
-     	   @successTxt = @add.text(200, 200, "Yay!", { font: "65px Arial", fill: "#ff0044", align: "center" })
+     	   @star.destroy()
+     	   @star = @add.sprite @starx, @stary, 'litstar'
      	   @printed = true
      else 
-     	@successTxt.destroy()
-     	@printed = false
+        if @printed
+     	   @star.destroy()
+     	   @star = @add.sprite @starx, @stary, 'unlitstar'
+     	   @printed = false
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
@@ -115,7 +117,7 @@ class Game
   drawConstellation: (level) ->
     level.name
     for star in level.starsArray
-        @add.sprite star.x, star.y, 'star'
+        @add.sprite star.x, star.y, 'litstar'
 
 
 
