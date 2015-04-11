@@ -3,18 +3,23 @@ class Game
   @player = null 
 
   create: ->
+    #add Sprites
     @game.add.sprite 0, 0, 'Plough'
+    @player = @add.sprite x, y, 'player'
+    @star = @add.sprite starx, stary, 'star'
+
+    #setup game window
     x = @game.width / 3
     y = @game.height / 2
     starx = @game.width / 2
     stary = @game.height / 2
-    @player = @add.sprite x, y, 'player'
-    @star = @add.sprite starx, stary, 'star'
-    @input.onDown.add @onInputDown, this
 
+    #setup game input/output
+    @input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
     @space = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
 
+    #setup game physics
     @game.physics.startSystem Phaser.Physics.P2JS
     @game.physics.p2.enable @player
     @game.physics.p2.defaultRestitution = 0.8
