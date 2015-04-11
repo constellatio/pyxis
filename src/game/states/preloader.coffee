@@ -10,8 +10,8 @@ class Preloader
     @load.setPreloadSprite @asset
     @load.image 'player', 'assets/images/blue pirate.png'
     @load.image 'Plough', 'assets/images/Plough.png'
-    @load.image 'litstar', 'assets/images/star.png'
-    @load.image 'unlitstar', 'assets/images/BLUE.png'
+    @load.image 'litstar', 'assets/images/lit.png'
+    @load.image 'unlitstar', 'assets/images/unlit.png'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
     
 
