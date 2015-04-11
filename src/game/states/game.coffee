@@ -16,13 +16,13 @@ LEVELS = [
     name: 'The Big Dipper',
     numStars: 7,
     starsArray: [
-        {x: 39, y: 107},
-        {x: 317, y: 41},
-        {x: 485, y: 115},
-        {x: 697, y: 189},
-        {x: 755, y: 367},
-        {x: 1083, y: 350},
-        {x: 1115, y: 130},
+        {x: 46, y: 275},
+        {x: 142, y: 200},
+        {x: 221, y: 201},
+        {x: 318, y: 193},
+        {x: 371, y: 252},
+        {x: 497, y: 189},
+        {x: 472, y: 97},
     ]
   },
   {
@@ -63,7 +63,7 @@ class Game
 
 
     #Plot empty stars
-    @drawConstellation(LEVELS[2])
+    @drawConstellation(LEVELS[0])
 
     #add sounds
     @soundSputnik = @game.add.audio 'soundSputnik'
