@@ -53,7 +53,7 @@ class Game
     y = @game.height / 2   
 
     #add Sprites
-    @game.add.sprite 0, 0, 'Plough'
+    @game.add.sprite 0, 0, 'background'
     #Plot empty stars
     @player = @add.sprite x, y, 'player'
     @constellation = []
