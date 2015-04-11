@@ -1,15 +1,14 @@
 LEVELS = [
   {
     name: 'The Little Dipper',
-    numStars: 8,
+    numStars: 7,
     starsArray: [
         {x: 309, y: 40},
         {x: 257, y: 125},
         {x: 220, y: 235},
         {x: 247, y: 357},
         {x: 189, y: 391},
-        {x: 261, y: 508},
-        {x: 272, y: 511},
+        {x: 261, y: 508},        
         {x: 319, y: 455},
     ]
   },{
@@ -47,28 +46,27 @@ LEVELS = [
 class Game
 
   @player = null 
+<<<<<<< HEAD
   @successTxt = null
   @timeTimerStart = null
+=======
+>>>>>>> 328f0b7d78706196e0e6c3dda98514c86f483ddb
 
   create: ->
     #setup game window
     x = @game.width / 3
     y = @game.height / 2   
-    @starx = @game.width / 2
-    @stary = @game.height / 2
 
     #add Sprites
     @game.add.sprite 0, 0, 'Plough'
-    @star = @add.sprite @starx, @stary, 'litstar'
-    @player = @add.sprite x, y, 'player'
-
-
     #Plot empty stars
+    @player = @add.sprite x, y, 'player'
+    @constellation = []
+    @printed = []
     @drawConstellation(LEVELS[0])
 
     #add sounds
-    @soundSputnik = @game.add.audio 'soundSputnik'
-
+    #@soundSputnik = @game.add.audio 'soundSputnik'
 
     #setup game input/output
     @input.onDown.add @onInputDown, this
@@ -81,14 +79,14 @@ class Game
     @player.body.fixedRotation = true
     @player.body.setZeroDamping()
 
-    @printed = false
-
   update: ->
      @player.body.setZeroVelocity()
 
-     @xdistance = Math.abs(@player.x - @star.x)
-     @ydistance = Math.abs(@player.y - @star.y)
+     for star, i in @constellation
+     	 @xdistance = Math.abs(@player.x - star.x)
+     	 @ydistance = Math.abs(@player.y - star.y)
 
+<<<<<<< HEAD
       #if Player on star
      if @xdistance < 10 && @ydistance < 10 
         if not @printed
@@ -100,6 +98,16 @@ class Game
          @game.add.tween(@star).to({alpha:0.1},3000,Phaser.Easing.Cubic.Out,true)
      	   #@star.alpha = 0.1
      	   @printed = false
+=======
+     	 if @xdistance < 20 && @ydistance < 20 
+     	    if not @printed[i]
+     	       star.alpha = 1
+     	       @printed[i] = true
+     	 else 
+     	    if @printed[i]
+     	       star.alpha = 0.3
+     	       @printed[i] = false
+>>>>>>> 328f0b7d78706196e0e6c3dda98514c86f483ddb
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
@@ -108,8 +116,10 @@ class Game
      if @cursors.up.isDown
         @player.body.moveUp(200)
      else if @cursors.down.isDown
-        @player.body.moveDown(200)
-        #@soundSputnik.play()           Plays A Sound
+        @player.body.moveDown(200) 
+        #Plays A Sound
+        #@soundSputnik.play()           
+
 
   onInputDown: ->
     @game.state.start 'menu'
@@ -117,10 +127,11 @@ class Game
 
 
   drawConstellation: (level) ->
-    level.name
-    for star in level.starsArray
-        @add.sprite star.x, star.y, 'litstar'
-
-
+     console.log @constellation
+     for star in level.starsArray
+        star = @add.sprite star.x, star.y, 'litstar'
+        star.alpha = 0.3
+        @constellation.push(star)
+        @printed.push(false)
 
 module.exports = Game
