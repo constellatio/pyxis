@@ -102,9 +102,8 @@ class Game
              @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
        #if Player not on star
-               @game.Tween.removeAllTweens();
-     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
-
+               @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
+               #@game.Tween.removeAllTweens()
      	 if won
      	    if star.alpha < 0.35
      	       won = false
