@@ -46,11 +46,6 @@ LEVELS = [
 class Game
 
   @player = null 
-<<<<<<< HEAD
-  @successTxt = null
-  @timeTimerStart = null
-=======
->>>>>>> 328f0b7d78706196e0e6c3dda98514c86f483ddb
 
   create: ->
     #setup game window
@@ -86,28 +81,16 @@ class Game
      	 @xdistance = Math.abs(@player.x - star.x)
      	 @ydistance = Math.abs(@player.y - star.y)
 
-<<<<<<< HEAD
-      #if Player on star
-     if @xdistance < 10 && @ydistance < 10 
-        if not @printed
-     	   @star.alpha = 1
-     	   @printed = true
-      #else if Player not on star
-     else 
-        if @printed
-         @game.add.tween(@star).to({alpha:0.1},3000,Phaser.Easing.Cubic.Out,true)
-     	   #@star.alpha = 0.1
-     	   @printed = false
-=======
      	 if @xdistance < 20 && @ydistance < 20 
+        #if Player on star
      	    if not @printed[i]
-     	       star.alpha = 1
+     	       @game.add.tween(@star).to({alpha:0.1},1000,Phaser.Easing.Cubic.Out,true)
      	       @printed[i] = true
      	 else 
+       #if Player not on star
      	    if @printed[i]
-     	       star.alpha = 0.3
+     	       @game.add.tween(@star).to({alpha:0.1},3000,Phaser.Easing.Cubic.Out,true)
      	       @printed[i] = false
->>>>>>> 328f0b7d78706196e0e6c3dda98514c86f483ddb
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
