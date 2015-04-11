@@ -58,7 +58,7 @@ class Game
     y = @level.starsArray[@level.startingStar].y
 
     #add Sprites
-    @game.add.sprite 0, 0, 'Plough'
+    @game.add.sprite 0, 0, 'background'
     #Plot empty stars
     @constellation = []
     @levelcomplete = false
