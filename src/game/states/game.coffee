@@ -1,3 +1,46 @@
+LEVELS = [
+  {
+    name: 'The Plough',
+    numStars: 7,
+    starsArray: [
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+    ]
+  },
+  {
+    name: 'The Plough',
+    numStars: 7,
+    starsArray: [
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+    ]
+  },
+  {
+    name: 'The Plough',
+    numStars: 7,
+    starsArray: [
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+        {x: 200, y: 200},
+    ]
+  },
+]
+
+
 class Game
 
   @player = null 
@@ -47,6 +90,10 @@ class Game
 
   onInputDown: ->
     @game.state.start 'menu'
+
+
+
+  drawConstellation: (numStars, starsArray) ->
 
 
 module.exports = Game
