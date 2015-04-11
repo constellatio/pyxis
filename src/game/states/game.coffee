@@ -47,26 +47,24 @@ LEVELS = [
 class Game
 
   @player = null 
-  @successTxt = null
 
   create: ->
     #setup game window
     x = @game.width / 3
     y = @game.height / 2   
-    @starx = @game.width / 2
-    @stary = @game.height / 2
 
     #add Sprites
     @game.add.sprite 0, 0, 'Plough'
-    @star = @add.sprite @starx, @stary, 'unlitstar'
+    #@star = @add.sprite @starx, @stary, 'unlitstar'
     @player = @add.sprite x, y, 'player'
-
+    @constellation = []
+    @printed = []
 
     #Plot empty stars
     @drawConstellation(LEVELS[2])
 
     #add sounds
-    @soundSputnik = @game.add.audio 'soundSputnik'
+    #@soundSputnik = @game.add.audio 'soundSputnik'
 
 
     #setup game input/output
@@ -80,24 +78,24 @@ class Game
     @player.body.fixedRotation = true
     @player.body.setZeroDamping()
 
-    @printed = false
 
   update: ->
      @player.body.setZeroVelocity()
 
-     @xdistance = Math.abs(@player.x - @star.x)
-     @ydistance = Math.abs(@player.y - @star.y)
+     for star, i in @constellation
+     	 @xdistance = Math.abs(@player.x - star.x)
+     	 @ydistance = Math.abs(@player.y - star.y)
 
-     if @xdistance < 10 && @ydistance < 10 
-        if not @printed
-     	   @star.destroy()
-     	   @star = @add.sprite @starx, @stary, 'litstar'
-     	   @printed = true
-     else 
-        if @printed
-     	   @star.destroy()
-     	   @star = @add.sprite @starx, @stary, 'unlitstar'
-     	   @printed = false
+     	 if @xdistance < 10 && @ydistance < 10 
+     	    if not @printed[i]
+     	       star.destroy()
+     	       star = @add.sprite star.x, star.y, 'litstar'
+     	       @printed[i] = true
+     	 else 
+     	    if @printed[i]
+     	       star.destroy()
+     	       star = @add.sprite star.x, star.y, 'unlitstar'
+     	       @printed[i] = false
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
@@ -115,10 +113,9 @@ class Game
 
 
   drawConstellation: (level) ->
-    level.name
-    for star in level.starsArray
-        @add.sprite star.x, star.y, 'litstar'
-
-
+     console.log @constellation
+     for star in level.starsArray
+        @constellation.push(@add.sprite star.x, star.y, 'unlitstar')
+        @printed.push(false)
 
 module.exports = Game
