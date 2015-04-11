@@ -8,9 +8,10 @@ class Preloader
     @asset.anchor.setTo 0.5, 0.5
     @load.onLoadComplete.addOnce @onLoadComplete, this
     @load.setPreloadSprite @asset
-    @load.image 'player', 'assets/images/BLUE.png'
+    @load.image 'player', 'assets/images/blue pirate.png'
     @load.image 'Plough', 'assets/images/Plough.png'
-    @load.image 'star', 'assets/images/star.png'
+    @load.image 'litstar', 'assets/images/star.png'
+    @load.image 'unlitstar', 'assets/images/BLUE.png'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
     
 
