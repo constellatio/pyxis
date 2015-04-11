@@ -102,6 +102,7 @@ class Game
      	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
        #if Player not on star
+               @game.Tween.removeAllTweens();
      	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
 
      	 if won
@@ -109,7 +110,7 @@ class Game
      	       won = false
          
      if won
-     	@add.text(10, 10, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
+     	@add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
      	@levelcomplete = true
 
      if @cursors.left.isDown
