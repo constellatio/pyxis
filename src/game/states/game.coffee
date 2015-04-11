@@ -62,6 +62,7 @@ class Game
     @star = @add.sprite @starx, @stary, 'unlitstar'
     #Plot empty stars
     @drawConstellation(LEVELS[0])
+    @star = @add.sprite @starx, @stary, 'litstar'
     @player = @add.sprite x, y, 'player'
 
 
@@ -90,15 +91,15 @@ class Game
      @xdistance = Math.abs(@player.x - @star.x)
      @ydistance = Math.abs(@player.y - @star.y)
 
+      #if Player on star
      if @xdistance < 10 && @ydistance < 10 
         if not @printed
-     	   @star.destroy()
-     	   @star = @add.sprite @starx, @stary, 'litstar'
+     	   @star.alpha = 1
      	   @printed = true
+      #else if Player not on star
      else 
         if @printed
-     	   @star.destroy()
-     	   @star = @add.sprite @starx, @stary, 'unlitstar'
+     	   @star.alpha = 0.1
      	   @printed = false
 
      if @cursors.left.isDown
