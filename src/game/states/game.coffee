@@ -56,6 +56,7 @@ class Game
     @game.add.sprite 0, 0, 'Plough'
     #Plot empty stars
     @player = @add.sprite x, y, 'player'
+    @player.scale.set 0.5,0.5
     @constellation = []
     @drawConstellation(LEVELS[0])
 
@@ -82,10 +83,10 @@ class Game
 
      	 if @xdistance < 20 && @ydistance < 20 
         #if Player on star
-     	       @game.add.tween(star).to({alpha:1},100,Phaser.Easing.Cubic.Out,true)
+     	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
        #if Player not on star
-     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Cubic.Out,true)
+     	       @game.add.tween(star).to({alpha:0.1},10000,Phaser.Easing.Quintic.Out,true)
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
@@ -110,6 +111,7 @@ class Game
         star = @add.sprite star.x, star.y, 'litstar'
         star.alpha = 0.3
         star.anchor.setTo 0.5, 0.5
+        star.scale.set 0.5, 0.5
         @constellation.push(star)
 
 module.exports = Game
