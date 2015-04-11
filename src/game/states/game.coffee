@@ -1,28 +1,27 @@
 LEVELS = [
   {
     name: 'The Little Dipper',
-    numStars: 8,
+    numStars: 7,
     starsArray: [
         {x: 309, y: 40},
         {x: 257, y: 125},
         {x: 220, y: 235},
         {x: 247, y: 357},
         {x: 189, y: 391},
-        {x: 261, y: 508},
-        {x: 272, y: 511},
+        {x: 261, y: 508},        
         {x: 319, y: 455},
     ]
   },{
     name: 'The Big Dipper',
     numStars: 7,
     starsArray: [
-        {x: 39, y: 107},
-        {x: 317, y: 41},
-        {x: 485, y: 115},
-        {x: 697, y: 189},
-        {x: 755, y: 367},
-        {x: 1083, y: 350},
-        {x: 1115, y: 130},
+        {x: 46, y: 275},
+        {x: 142, y: 200},
+        {x: 221, y: 201},
+        {x: 318, y: 193},
+        {x: 371, y: 252},
+        {x: 497, y: 189},
+        {x: 472, y: 97},
     ]
   },
   {
@@ -53,15 +52,20 @@ class Game
     x = @game.width / 3
     y = @game.height / 2   
 
+
+
     #add Sprites
     @game.add.sprite 0, 0, 'Plough'
-    #@star = @add.sprite @starx, @stary, 'unlitstar'
+    @star = @add.sprite @starx, @stary, 'unlitstar'
+    #Plot empty stars
+    @drawConstellation(LEVELS[0])
+    @star = @add.sprite @starx, @stary, 'litstar'
     @player = @add.sprite x, y, 'player'
     @constellation = []
     @printed = []
 
-    #Plot empty stars
-    @drawConstellation(LEVELS[2])
+
+    
 
     #add sounds
     #@soundSputnik = @game.add.audio 'soundSputnik'
@@ -104,8 +108,10 @@ class Game
      if @cursors.up.isDown
         @player.body.moveUp(200)
      else if @cursors.down.isDown
-        @player.body.moveDown(200)
-        #@soundSputnik.play()           Plays A Sound
+        @player.body.moveDown(200) 
+        #Plays A Sound
+        #@soundSputnik.play()           
+
 
   onInputDown: ->
     @game.state.start 'menu'
