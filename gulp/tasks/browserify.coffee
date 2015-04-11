@@ -34,7 +34,7 @@ gulp.task 'browserify', ->
       # Use vinyl-source-stream to make the
       # stream gulp compatible. Specifiy the
       # desired output filename here.
-      .pipe source 'app.js'
+      .pipe source 'game.js'
       # Specify the output destination
       .pipe gulp.dest './build'
       # Log when bundling completes!
