@@ -27,12 +27,12 @@ for name,details in interfaces
 		if address.family == 'IPv4' && !address.internal && detail != 'v'
 			addresses.push(address.address)
 
-console.log('http://' + addresses[0] + ':8081/activeloop')
+console.log('http://' + addresses[0] + ':8081/pyxis')
 
 server.listen(8081)
 app.get '/', (req, res) ->
 	res.render('index', {host:addresses[0]})
-app.get '/activeloop', (req, res) ->
+app.get '/pyxis', (req, res) ->
 	res.render('display', {host:addresses[0]})
 app.use('/static', express.static(__dirname + '/static'))
 

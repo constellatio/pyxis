@@ -1,8 +1,9 @@
 {
-  "name": "constellations",
-  "description": "",
-  "readme": "",
-  "repository": "",
+  "name": "pyxis",
+  "description": "A multiplayer constellations game, developed for Space Apps 2015.",
+  "readme": "README.md",
+  "repository": "https://github.com/constellatio/pyxis",
+  "license": "MIT",
   "version": "0.0.0",
   "dependencies": {
     "express": "^4.12.3",
