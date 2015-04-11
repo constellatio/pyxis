@@ -57,7 +57,6 @@ class Game
     #Plot empty stars
     @player = @add.sprite x, y, 'player'
     @constellation = []
-    @printed = []
     @drawConstellation(LEVELS[0])
 
     #add sounds
@@ -82,13 +81,9 @@ class Game
      	 @ydistance = Math.abs(@player.y - star.y)
 
      	 if @xdistance < 20 && @ydistance < 20 
-     	    if not @printed[i]
      	       star.alpha = 1
-     	       @printed[i] = true
      	 else 
-     	    if @printed[i]
      	       star.alpha = 0.3
-     	       @printed[i] = false
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
@@ -112,7 +107,7 @@ class Game
      for star in level.starsArray
         star = @add.sprite star.x, star.y, 'litstar'
         star.alpha = 0.3
+        star.anchor.setTo 0.5, 0.5
         @constellation.push(star)
-        @printed.push(false)
 
 module.exports = Game
