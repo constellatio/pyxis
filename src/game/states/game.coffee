@@ -75,6 +75,7 @@ class Game
     @levelcomplete = false
     @drawConstellation(@level)
     @player = @add.sprite x, y, 'player'
+    @player.anchor.setTo 0.5, 0.5
     @player.scale.set 0.5,0.5
 
     #add sounds
