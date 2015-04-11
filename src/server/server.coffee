@@ -44,7 +44,7 @@ io.sockets.on 'connection', (socket) ->
 		display.emit('connected', {id:socket.id})
 
 	socket.on 'tilt', (data) ->
-		console.log('Tilt ' + id:socket.id + ' ' + data.x + ' ' + data.y + ' ' + data.z);
+		console.log('Tilt ' + socket.id + ' ' + data.x + ' ' + data.y + ' ' + data.z);
 		#if (data.r != null)
 			#console.log('Rotate ' + data.r.alpha + ' ' + data.r.beta + ' ' + data.r.gamma);
 		if (display != null)

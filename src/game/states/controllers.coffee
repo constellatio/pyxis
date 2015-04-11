@@ -24,9 +24,8 @@ connect = (game, player) ->
 
       controller = controllers[0]  #index]
       # x = y because we're holding sideways!
-      controller.x += data.y * 3
-      # negative delta here because WebGL coordinate space is upside down
-      controller.y += data.x * 3
+      controller.x += data.y
+      controller.y += data.x
 
       controller.x = Math.min(controller.x, game.width)
       controller.x = Math.max(controller.x, 0)
@@ -34,7 +33,7 @@ connect = (game, player) ->
       controller.y = Math.max(controller.y, 0)
 
       #if index == 0
-      game.physics.arcade.moveToXY(player, controller.x, controller.y, 0, 500)
+      game.physics.arcade.moveToXY(player, controller.x, controller.y, 0, 100)
 
       #      particle = gl.getUniformLocation gl.shaderProgram, 'u_positions[' + (index + 1) + ']'
       #      gl.uniform2f particle, controller.x / gl.width, controller.y / gl.height
