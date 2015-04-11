@@ -1,6 +1,7 @@
 class Game
 
   @player = null 
+  @successTxt = null
 
   create: ->
     @game.add.sprite 0, 0, 'Plough'
@@ -19,16 +20,22 @@ class Game
     @player.body.fixedRotation = true
     @player.body.setZeroDamping()
 
+    @successTxt = @add.text(200, 200, "Plink", { font: "65px Arial", fill: "#ff0044", align: "center" })
+    @printed = false
+
   update: ->
      @player.body.setZeroVelocity()
 
-     @xdistance = Math.abs(@player.x - @starx)
-     @ydistance = Math.abs(@player.y - @stary)
+     @xdistance = Math.abs(@player.x - @star.x)
+     @ydistance = Math.abs(@player.y - @star.y)
 
-     if @xdistance < 2 && @ydistance < 2
-     	@successTxt = @add.bitmapText(100, 100, 'minecraftia', 'Yay')
-     	@successTxt.align = 'center'
-     	@successTxt.x = @game.width / 2 - @successTxt.textWidth / 2
+     if @xdistance < 10 && @ydistance < 10 
+        if not @printed
+     	   @successTxt = @add.text(200, 200, "Yay!", { font: "65px Arial", fill: "#ff0044", align: "center" })
+     	   @printed = true
+     else 
+     	@successTxt.destroy()
+     	@printed = false
 
      if @cursors.left.isDown
      	@player.body.moveLeft(100)
