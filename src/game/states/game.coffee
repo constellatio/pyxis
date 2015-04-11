@@ -52,7 +52,7 @@ class Game
 
   create: ->
     #setup game window
-    @levelnum = 0
+    @levelnum = 2
     @level = LEVELS[@levelnum]
     x = @level.starsArray[@level.startingStar].x
     y = @level.starsArray[@level.startingStar].y
@@ -90,7 +90,7 @@ class Game
 
      	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
         #if Player on star
-     	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
+             @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
        #if Player not on star
 
