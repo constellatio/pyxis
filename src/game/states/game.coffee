@@ -1,8 +1,9 @@
 class Game
 
-  @player = null
+  @player = null 
 
   create: ->
+    @game.add.sprite 0, 0, 'Plough'
     x = @game.width / 3
     y = @game.height / 2
     starx = @game.width / 2
@@ -10,6 +11,7 @@ class Game
     @star = @add.sprite starx, stary, 'star'
     @player = @add.sprite x, y, 'player'
     @input.onDown.add @onInputDown, this
+
     @cursors = @game.input.keyboard.createCursorKeys()
     @space = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
 
@@ -46,5 +48,6 @@ class Game
 	
   onInputDown: ->
     @game.state.start 'menu'
+
 
 module.exports = Game
