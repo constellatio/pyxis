@@ -7,8 +7,8 @@ class Game
     y = @game.height / 2
     starx = @game.width / 2
     stary = @game.height / 2
-    @player = @add.sprite x, y, 'player'
     @star = @add.sprite starx, stary, 'star'
+    @player = @add.sprite x, y, 'player'
     @input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
     @space = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
@@ -21,6 +21,14 @@ class Game
 
   update: ->
      @player.body.setZeroVelocity()
+
+     @xdistance = Math.abs(@player.x - @starx)
+     @ydistance = Math.abs(@player.y - @stary)
+
+     if @xdistance < 100 && @ydistance < 100
+     	@successTxt = @add.bitmapText(x, y, 'minecraftia', 'Yay2')
+    	@successTxt.align = 'center'
+    	@successTxt.x = @game.width / 2 - @successTxt.textWidth / 2
 
      if @cursors.left.isDown
      	@player.body.moveLeft(100)
