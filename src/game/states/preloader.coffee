@@ -9,7 +9,7 @@ class Preloader
     @load.onLoadComplete.addOnce @onLoadComplete, this
     @load.setPreloadSprite @asset
     @load.image 'player', 'assets/images/blue pirate.png'
-    @load.image 'Plough', 'assets/images/Plough.png'
+    @load.image 'background', 'assets/images/background.png'
     @load.image 'litstar', 'assets/images/lit.png'
     @load.image 'unlitstar', 'assets/images/unlit.png'
     @load.image 'star', 'assets/images/star.png'
