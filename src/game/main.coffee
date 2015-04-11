@@ -10,5 +10,6 @@ window.onload = ->
   game.state.add 'preloader', require './states/preloader'
   game.state.add 'menu', require './states/menu'
   game.state.add 'game', require './states/game'
+  game.state.add 'story', require './states/story'
 
   game.state.start 'boot'

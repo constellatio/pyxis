@@ -1,6 +1,5 @@
 class Menu
 
-  @titleTxt = null
   @startTxt = null
   @mainMenuImage = null
 
@@ -21,6 +20,6 @@ class Menu
   update: ->
 
   onDown: ->
-    @game.state.start 'game'
+    @game.state.start 'story'
 
 module.exports = Menu
