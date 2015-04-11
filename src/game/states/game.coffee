@@ -48,6 +48,7 @@ class Game
 
   @player = null 
   @successTxt = null
+  @timeTimerStart = null
 
   create: ->
     #setup game window
@@ -96,7 +97,8 @@ class Game
       #else if Player not on star
      else 
         if @printed
-     	   @star.alpha = 0.1
+         @game.add.tween(@star).to({alpha:0.1},3000,Phaser.Easing.Cubic.Out,true)
+     	   #@star.alpha = 0.1
      	   @printed = false
 
      if @cursors.left.isDown
