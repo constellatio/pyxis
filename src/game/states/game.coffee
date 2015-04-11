@@ -6,7 +6,7 @@ class Game
     @game.add.sprite 0, 0, 'Plough'
     x = @game.width / 3
     y = @game.height / 2
-    starx = @game.width / 2
+    starx = @game.width / 3
     stary = @game.height / 2
     @star = @add.sprite starx, stary, 'star'
     @player = @add.sprite x, y, 'player'
@@ -29,8 +29,6 @@ class Game
 
      if @xdistance < 100 && @ydistance < 100
      	@successTxt = @add.bitmapText(x, y, 'minecraftia', 'Yay2')
-    	@successTxt.align = 'center'
-    	@successTxt.x = @game.width / 2 - @successTxt.textWidth / 2
 
      if @cursors.left.isDown
      	@player.body.moveLeft(100)

@@ -9,7 +9,6 @@ class Preloader
     @load.onLoadComplete.addOnce @onLoadComplete, this
     @load.setPreloadSprite @asset
     @load.image 'player', 'assets/images/BLUE.png'
-    @load.image 'player', 'assets/images/player.png'
     @load.image 'Plough', 'assets/images/Plough.png'
     @load.image 'star', 'assets/images/star.png'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
