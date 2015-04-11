@@ -99,7 +99,7 @@ class Game
 
      	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
         #if Player on star
-     	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
+             @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
        #if Player not on star
                @game.Tween.removeAllTweens();
