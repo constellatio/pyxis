@@ -57,6 +57,7 @@ class Game
     #Plot empty stars
     @player = @add.sprite x, y, 'player'
     @constellation = []
+    @levelcomplete = false
     @drawConstellation(LEVELS[0])
 
     #add sounds
@@ -81,7 +82,7 @@ class Game
      	 @xdistance = Math.abs(@player.x - star.x)
      	 @ydistance = Math.abs(@player.y - star.y)
 
-     	 if @xdistance < 20 && @ydistance < 20 
+     	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
         #if Player on star
      	       @game.add.tween(star).to({alpha:1},100,Phaser.Easing.Cubic.Out,true)
      	 else 
@@ -93,6 +94,7 @@ class Game
          
      if won
      	@add.text(10, 10, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
+     	@levelcomplete = true
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
