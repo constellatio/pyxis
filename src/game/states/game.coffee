@@ -5,25 +5,31 @@ class Game
   create: ->
     x = @game.width / 3
     y = @game.height / 2
+    starx = @game.width / 2
+    stary = @game.height / 2
     @player = @add.sprite x, y, 'player'
+    @star = @add.sprite starx, stary, 'star'
     @input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
     @space = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
 
-    @game.physics.startSystem(Phaser.Physics.P2JS)
-    @game.physics.p2.enable(@player)
-    @player.body.applyDamping(2)
+    @game.physics.startSystem Phaser.Physics.P2JS
+    @game.physics.p2.enable @player
+    @game.physics.p2.defaultRestitution = 0.8
     @player.body.fixedRotation = true
+    @player.body.setZeroDamping()
 
   update: ->
+     @player.body.setZeroVelocity()
+
      if @cursors.left.isDown
-     	@player.body.moveLeft(400)
-     if @cursors.right.isDown
-     	@player.body.moveRight(400)
+     	@player.body.moveLeft(100)
+     else if @cursors.right.isDown
+     	@player.body.moveRight(100)
      if @cursors.up.isDown
-     	@player.body.moveUp(400)
-     if @cursors.down.isDown
-     	@player.body.moveDown(400)
+     	@player.body.moveUp(100)
+     else if @cursors.down.isDown
+     	@player.body.moveDown(100)
      if @space.isDown
      	@player.body.moveDown(0)
      	@player.body.moveUp(0)
