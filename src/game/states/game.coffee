@@ -81,15 +81,13 @@ class Game
      	 @xdistance = Math.abs(@player.x - star.x)
      	 @ydistance = Math.abs(@player.y - star.y)
 
-     	 if @xdistance < 10 && @ydistance < 10 
+     	 if @xdistance < 20 && @ydistance < 20 
      	    if not @printed[i]
-     	       star.destroy()
-     	       star = @add.sprite star.x, star.y, 'litstar'
+     	       star.alpha = 1
      	       @printed[i] = true
      	 else 
      	    if @printed[i]
-     	       star.destroy()
-     	       star = @add.sprite star.x, star.y, 'unlitstar'
+     	       star.alpha = 0.3
      	       @printed[i] = false
 
      if @cursors.left.isDown
@@ -112,7 +110,9 @@ class Game
   drawConstellation: (level) ->
      console.log @constellation
      for star in level.starsArray
-        @constellation.push(@add.sprite star.x, star.y, 'unlitstar')
+        star = @add.sprite star.x, star.y, 'litstar'
+        star.alpha = 0.3
+        @constellation.push(star)
         @printed.push(false)
 
 module.exports = Game
