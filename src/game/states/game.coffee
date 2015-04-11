@@ -1,13 +1,16 @@
 class Game
 
-  @player = null
+  @player = null 
 
   create: ->
+    
+    @game.add.sprite 0, 0, 'Plough'
     x = @game.width / 2
     y = @game.height / 2
     @player = @add.sprite x, y, 'player'
     @player.anchor.setTo 0.5, 0.5
     @input.onDown.add @onInputDown, this
+    
 
   update: ->
     x = @input.position.x
@@ -27,5 +30,6 @@ class Game
 
   onInputDown: ->
     @game.state.start 'menu'
+
 
 module.exports = Game

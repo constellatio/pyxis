@@ -9,7 +9,9 @@ class Preloader
     @load.onLoadComplete.addOnce @onLoadComplete, this
     @load.setPreloadSprite @asset
     @load.image 'player', 'assets/images/player.png'
+    @load.image 'Plough', 'assets/images/Plough.png'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
+    
 
   create: ->
     @asset.cropEnabled = false
