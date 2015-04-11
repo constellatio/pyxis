@@ -88,10 +88,8 @@ class Game
      	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
      	 else 
        #if Player not on star
-<<<<<<< HEAD
-     	       @game.add.tween(star).to({alpha:0.1},10000,Phaser.Easing.Quintic.Out,true)
-=======
-     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Cubic.Out,true)
+
+     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
      	 if won
      	    if star.alpha < 0.35
      	       won = false
@@ -99,7 +97,6 @@ class Game
      if won
      	@add.text(10, 10, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
      	@levelcomplete = true
->>>>>>> edcabb75232c6fd6a008c69ae49a3a6f2f367e0f
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
