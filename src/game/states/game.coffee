@@ -109,14 +109,14 @@ class Game
      	@add.text(10, 10, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
      	@levelcomplete = true
 
-     #if @cursors.left.isDown
-     #   @player.body.moveLeft(200)
-     #else if @cursors.right.isDown
-     #   @player.body.moveRight(200)
-     #if @cursors.up.isDown
-     #   @player.body.moveUp(200)
-     #else if @cursors.down.isDown
-     #   @player.body.moveDown(200)
+     if @cursors.left.isDown
+        @player.body.x -= 5
+     else if @cursors.right.isDown
+        @player.body.x += 5
+     if @cursors.up.isDown
+        @player.body.y -= 5
+     else if @cursors.down.isDown
+        @player.body.y += 5
         #Plays A Sound
         #@soundSputnik.play()
 
