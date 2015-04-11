@@ -23,13 +23,13 @@ class Game
      @player.body.setZeroVelocity()
 
      if @cursors.left.isDown
-     	@player.body.moveLeft(100)
+     	@player.body.moveLeft(200)
      else if @cursors.right.isDown
-     	@player.body.moveRight(100)
+     	@player.body.moveRight(200)
      if @cursors.up.isDown
-     	@player.body.moveUp(100)
+     	@player.body.moveUp(200)
      else if @cursors.down.isDown
-     	@player.body.moveDown(100)
+     	@player.body.moveDown(200)
      if @space.isDown
      	@player.body.moveDown(0)
      	@player.body.moveUp(0)
