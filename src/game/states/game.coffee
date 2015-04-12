@@ -17,28 +17,26 @@ LEVELS = [
     numStars: 7,
     startingStar: 0,
     starsArray: [
-        {x: 46, y: 275},
-        {x: 142, y: 200},
-        {x: 221, y: 201},
-        {x: 318, y: 193},
-        {x: 371, y: 252},
-        {x: 497, y: 189},
-        {x: 472, y: 97},
+        {x: 320, y: 95},
+        {x: 411, y: 98},
+        {x: 431, y: 211},
+        {x: 358, y: 234},
+        {x: 336, y: 311},
+        {x: 316, y: 380},
+        {x: 358, y: 469},
     ]
   },
   {
-    name: 'Bootes the Herdsman',
-    numStars: 8,
+    name: 'Boötes',
+    numStars: 6,
     startingStar: 0,
     starsArray: [
-        {x: 381, y: 409},
-        {x: 215, y: 286},
-        {x: 64, y: 182},
-        {x: 101, y: 31},
-        {x: 222, y: 52},
-        {x: 259, y: 210},
-        {x: 288, y: 544},        
-        {x: 519, y: 440},
+        {x: 586, y: 299},
+        {x: 676, y: 226},
+        {x: 132, y: 299},
+        {x: 70, y: 132},
+        {x: 197, y: 85},
+        {x: 333, y: 195},       
     ]
   },
   {
@@ -46,15 +44,17 @@ LEVELS = [
     numStars: 9,
     startingStar: 0,
     starsArray: [
-        {x: 76, y: 222},
-        {x: 204, y: 266},
-        {x: 321, y: 372},
-        {x: 252, y: 485},
-        {x: 456, y: 287},
-        {x: 391, y: 188},
-        {x: 357, y: 30},        
-        {x: 561, y: 271},
-        {x: 648, y: 230},
+        {x: 380, y: 372},
+        {x: 289, y: 509},
+        {x: 90, y: 508},
+        {x: 175, y: 390},
+        {x: 237, y: 332},
+        {x: 254, y: 203},
+        {x: 166, y: 181},        
+        {x: 335, y: 289},
+        {x: 328, y: 187},
+        {x: 335, y: 118},
+        {x: 348, y: 32},
     ]
   },
   {
@@ -88,7 +88,7 @@ class Game
 
   create: ->
     #Constants
-    @levelnum = 0
+    @levelnum = @game.currentLevel
     @dimSpdConstant = 15000
     @lightSpdConstant = 200
     @starDimAlpha = 0.3
@@ -97,11 +97,14 @@ class Game
     @drawLevel(@levelnum)
     @input.onDown.add @onDown, this
 
-
   onDown: ->
-    if @levelcomplete
-       @levelnum++
-       @drawLevel(@levelnum)
+
+    if @levelcomplete     
+       @map = false 
+       @game.currentLevel++
+       @drawLevel(@levelnum)      
+      @game.state.start 'script'
+
 
   drawLevel: (@levelnum) ->
     #setup game window
@@ -110,13 +113,14 @@ class Game
     y = @level.starsArray[@level.startingStar].y
 
     #add Sprites
-    @game.add.sprite 0, 0, 'background'
+    if not @backimage
+      @backImage = @game.add.sprite 0, 0, 'background'
 
     #Plot empty stars
     @constellation = []
     @levelcomplete = false
     @drawConstellation(@level)
-    @add.text(560, 595, @level.name, { font: "18px Arial", fill: "#FFFF00", align: "center" })
+    @add.text(500, 590, @level.name, { font: "24px Arial", fill: "#FFFF00", align: "center" })
 
     @game.physics.startSystem Phaser.Physics.Arcade
 
@@ -126,9 +130,7 @@ class Game
 
      #add sounds
     music = @game.add.audio ('backgroundSound')
-    #@soundSputnik = @game.add.audio 'soundSputnik'
-
-    music.play()
+    music.play() 
 
     #setup game input/output
     @cursors = @game.input.keyboard.createCursorKeys()
@@ -141,8 +143,6 @@ class Game
 
 
   update: ->
-    #@player.body.setZeroVelocity()
-
     won = true
     active = []
     for star, i in @constellation
@@ -160,13 +160,13 @@ class Game
             # if a player on star
             if not star.active
                 @game.tweens.removeFrom(star)
-                @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
+                @game.add.tween(star).to({alpha:@starLitAlpha},@lightSpdConstant,Phaser.Easing.Quintic.Out,true)
                 star.active = true
         else
             # no players on star
             if star.active
                 @game.tweens.removeFrom(star)
-                @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
+                @game.add.tween(star).to({alpha:@starDimAlpha},@dimSpdConstant,Phaser.Easing.Quintic.Out,true)
                 star.active = false
 
         if won
@@ -176,6 +176,7 @@ class Game
     if won
         @add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
         @levelcomplete = true
+        @displayMap()
 
     if @cursors.left.isDown
         @players[0].body.x -= 4
@@ -201,12 +202,18 @@ class Game
         star.scale.set 0.5, 0.5
         @constellation.push(star)
 
+  displayMap: ->
+    if not @map
+      @map = @game.add.sprite 0, 0, 'starMap'
+      @map.alpha = 0
+      @backImage.alpha = 0
+      @game.add.tween(@map).to({alpha:1},1000,Phaser.Easing.Linear.Out,true)
+
   drawPlayer: (player, x, y) ->
     playerObj = @add.sprite x, y, player.sprite
     playerObj.anchor.setTo 0.5, 0.5
     playerObj.scale.set 0.5,0.5
     @game.physics.enable(playerObj, Phaser.Physics.ARCADE)
     return playerObj
-
 
 module.exports = Game

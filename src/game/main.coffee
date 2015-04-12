@@ -6,6 +6,7 @@ window.onload = ->
   Controllers = require './controllers'
 
   game = new Phaser.Game 700, 700, Phaser.AUTO, 'constellations'
+  game.currentLevel = 0
   window.controllers = new Controllers game
 
   # Game States
