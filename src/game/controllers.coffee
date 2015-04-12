@@ -23,7 +23,7 @@ class Controllers extends EventEmitter
 
     @socket.on 'tilted', (data) =>
       index = @lookup[data.id]
-      console.log 'Tilted:' + index + ' ' + data.x + ' ' + data.y
+      # console.log 'Tilted:' + index + ' ' + data.x + ' ' + data.y
 
       controller = @controllers[index]  #index]
       # x = y because we're holding sideways!

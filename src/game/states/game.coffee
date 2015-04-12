@@ -78,8 +78,10 @@ LEVELS = [
 PLAYERS = [
   {sprite: 'player'},
   {sprite: 'pyxis'},
-  {sprite: 'player2'},
-  {sprite: 'player3'}
+  {sprite: 'dog'},
+  {sprite: 'cat'},
+  #{sprite: 'player2'},
+  #{sprite: 'player3'}
 ]
 
 class Game
