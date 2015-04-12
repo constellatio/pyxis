@@ -106,9 +106,8 @@ class Game
 
     if @levelcomplete     
        @map = false 
-       @game.currentLevel++
        @drawLevel(@levelnum)      
-      @game.state.start 'script'
+       @game.state.start 'postcard'
 
 
   drawLevel: (@levelnum) ->
