@@ -27,7 +27,7 @@ LEVELS = [
     ]
   },
   {
-    name: 'Bootes the Herdsman',
+    name: 'Boötes, the Herdsman',
     numStars: 8,
     startingStar: 0,
     starsArray: [
@@ -115,7 +115,7 @@ class Game
     @constellation = []
     @levelcomplete = false
     @drawConstellation(@level)
-    @add.text(560, 595, @level.name, { font: "18px Arial", fill: "#FFFF00", align: "center" })
+    @add.text(550, 595, @level.name, { font: "18px Arial", fill: "#FFFF00", align: "center" })
     @player = @add.sprite x, y, 'player'
     @player.scale.set 0.5,0.5
 
