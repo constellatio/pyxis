@@ -3,6 +3,8 @@ LEVELS = [
     name: 'The Little Dipper',
     numStars: 7,
     startingStar: 0,
+    arrowLocX:97,
+    arrowLocY:168,
     starsArray: [
         {x: 309, y: 40},
         {x: 257, y: 125},
@@ -16,6 +18,8 @@ LEVELS = [
     name: 'The Big Dipper',
     numStars: 7,
     startingStar: 0,
+    arrowLocX:261,
+    arrowLocY:187,
     starsArray: [
         {x: 320, y: 95},
         {x: 411, y: 98},
@@ -30,6 +34,8 @@ LEVELS = [
     name: 'Boötes',
     numStars: 6,
     startingStar: 0,
+    arrowLocX:681,
+    arrowLocY:446,
     starsArray: [
         {x: 586, y: 299},
         {x: 676, y: 226},
@@ -43,6 +49,8 @@ LEVELS = [
     name: 'Virgo',
     numStars: 9,
     startingStar: 0,
+    arrowLocX:586,
+    arrowLocY:481,
     starsArray: [
         {x: 380, y: 372},
         {x: 289, y: 509},
@@ -61,16 +69,18 @@ LEVELS = [
     name: 'Leo',
     numStars: 9,
     startingStar: 0,
+    arrowLocX:581,
+    arrowLocY:156,
     starsArray: [
-        {x: 77, y: 262},
-        {x: 210, y: 175},
-        {x: 207, y: 256},
-        {x: 455, y: 307},
-        {x: 453, y: 231},
-        {x: 404, y: 185},
-        {x: 414, y: 125},        
-        {x: 497, y: 77},
-        {x: 528, y: 112},
+        {x: 525, y: 180},
+        {x: 410, y: 392},
+        {x: 376, y: 493},
+        {x: 345, y: 365},
+        {x: 454, y: 163},
+        {x: 402, y: 193},
+        {x: 358, y: 169},        
+        {x: 333, y: 91},
+        {x: 368, y: 71},
     ]
   },
 ]
@@ -103,9 +113,8 @@ class Game
 
     if @levelcomplete     
        @map = false 
-       @game.currentLevel++
        @drawLevel(@levelnum)      
-      @game.state.start 'script'
+       @game.state.start 'postcard'
 
 
   drawLevel: (@levelnum) ->
@@ -205,11 +214,13 @@ class Game
         @constellation.push(star)
 
   displayMap: ->
+    @level = LEVELS[@levelnum]
     if not @map
       @map = @game.add.sprite 0, 0, 'starMap'
       @map.alpha = 0
       @backImage.alpha = 0
       @game.add.tween(@map).to({alpha:1},1000,Phaser.Easing.Linear.Out,true)
+      @game.add.sprite @level.arrowLocX, @level.arrowLocY, 'arrow'
 
   drawPlayer: (player, x, y) ->
     playerObj = @add.sprite x, y, player.sprite
