@@ -83,7 +83,7 @@ class Game
 
   create: ->
     #Constants
-    @levelnum = 0
+    @levelnum = @game.currentLevel
     @dimSpdConstant = 15000
     @lightSpdConstant = 200
     @starDimAlpha = 0.3
@@ -95,8 +95,8 @@ class Game
 
   onDown: ->
     if @levelcomplete
-       @levelnum++
-       @drawLevel(@levelnum)
+      @game.currentLevel++
+      @game.state.start 'script'
 
   drawLevel: (@levelnum) ->
     #setup game window
