@@ -3,7 +3,10 @@ window.onload = ->
 
   Phaser = require 'phaser'
 
+  Controllers = require './controllers'
+
   game = new Phaser.Game 700, 700, Phaser.AUTO, 'constellations'
+  window.controllers = new Controllers game
 
   # Game States
   game.state.add 'boot', require './states/boot'

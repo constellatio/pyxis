@@ -34,24 +34,36 @@ app.get '/pyxis', (req, res) ->
 app.use '', express.static(__dirname)
 
 # Configure the socket.io
+connections = {}
 io.sockets.on 'connection', (socket) ->
 
 	# If this is the display socket, keep a reference to it
 	socket.on 'display', (data) ->
 		display = socket
+		delete connections[socket.id]
+		console.log('DISPLAY')
+		for connection of connections
+			console.log(' - ' + connection)
+			display.emit('connected', {id:connection})
 
+	console.log('Connected! ' + socket.id)
+
+	connections[socket.id] = true
 	if display != null
 		display.emit('connected', {id:socket.id})
 
 	socket.on 'tilt', (data) ->
-		console.log('Tilt ' + socket.id + ' ' + data.x + ' ' + data.y + ' ' + data.z);
+		#console.log('Tilt ' + socket.id + ' ' + data.x + ' ' + data.y + ' ' + data.z);
 		#if (data.r != null)
 			#console.log('Rotate ' + data.r.alpha + ' ' + data.r.beta + ' ' + data.r.gamma);
 		if (display != null)
 			display.emit('tilted', {id:socket.id, x:data.x, y:data.y})
 
 	socket.on 'disconnect', (data) ->
+		console.log('Disconnected ' + socket.id)
 		if display == socket
 			display = null
-		else if not display == null
-			display.emit('disconnected', {id:socket.id})
+		else
+			delete connections[socket.id]
+			if not display == null
+				display.emit('disconnected', {id:socket.id})

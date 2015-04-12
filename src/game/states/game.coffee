@@ -1,5 +1,3 @@
-controllers = require './controllers'
-
 LEVELS = [
   {
     name: 'The Little Dipper',
@@ -134,7 +132,10 @@ class Game
 
     #setup game input/output
     @cursors = @game.input.keyboard.createCursorKeys()
-    controllers(@game, @players)
+    console.log 'registering for controllers'
+    window.controllers.removeAllListeners()
+    window.controllers.on 'move', (player, x, y) =>
+      @game.physics.arcade.moveToXY(@players[player], x, y, 0, 100)
 
     @printed = false
 
