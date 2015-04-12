@@ -82,16 +82,24 @@ class Game
   @player = null 
 
   create: ->
-    @levelnum = 0
+    #Constants
+    @levelnum = @game.currentLevel
+    @dimSpdConstant = 15000
+    @lightSpdConstant = 200
+    @starDimAlpha = 0.3
+    @starLitAlpha = 1
+
     @drawLevel(@levelnum)
     @input.onDown.add @onDown, this
-    
 
   onDown: ->
+
     if @levelcomplete     
-       @map =  
-       @levelnum++
-       @drawLevel(@levelnum)
+       @map = false 
+       @game.currentLevel++
+       @drawLevel(@levelnum)      
+      @game.state.start 'script'
+
 
   drawLevel: (@levelnum) ->
     #setup game window
@@ -113,7 +121,7 @@ class Game
 
      #add sounds
     music = @game.add.audio ('backgroundSound')
-    #@soundSputnik = @game.add.audio 'soundSputnik'
+
     
     music.play() 
 
@@ -138,11 +146,11 @@ class Game
 
      	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
         #if Player on star
-             @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
+             @game.add.tween(star).to({alpha:@starLitAlpha},@lightSpdConstant,Phaser.Easing.Quintic.Out,true)
      	 else 
 
        #if Player not on star
-               @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
+               @game.add.tween(star).to({alpha:@starDimAlpha},@dimSpdConstant,Phaser.Easing.Quintic.Out,true)
                #@game.Tween.removeAllTweens()
      	 if won
      	    if star.alpha < 0.35

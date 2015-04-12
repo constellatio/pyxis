@@ -17,6 +17,6 @@ class Story
 
     onDown: ->
 
-        @game.state.start 'game'
+        @game.state.start 'script'
 
 module.exports = Story
