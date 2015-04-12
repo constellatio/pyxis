@@ -76,6 +76,7 @@ class Script
 
     @player = @add.sprite 50, 395, 'player'
     @pxyis = @add.sprite 50, 195, 'pxyis'
+    @dog = @add.sprite 50, 295, 'dog'
 
     @pxyis_x = 160
     @pxyis_y = 195
@@ -84,9 +85,10 @@ class Script
     @bluey_x = 160
     @bluey_y = 395
 
-    @captainTxt =  @add.text(@pxyis_x, @pxyis_y, "", { font: "18px Arial", fill: "#FFFF00", align: "center" })
-    @dogTxt =  @add.text(@dog_x, @dog_y, "", { font: "18px Arial", fill: "#FFFF00", align: "center" })
-    @blueyTxt =  @add.text(@bluey_x, @bluey_y, "", { font: "18px Arial", fill: "#FFFF00", align: "center" })
+    @style = { font: "18px sans-serif", fill: "#FFFF00", align: "center", wordWrap: true, wordWrapWidth: 450}
+    @captainTxt =  @add.text(@pxyis_x, @pxyis_y, "", @style)
+    @dogTxt =  @add.text(@dog_x, @dog_y, "", @style)
+    @blueyTxt =  @add.text(@bluey_x, @bluey_y, "", @style)
     @index = 0
     @nextDialog()
     @index = 1
@@ -106,12 +108,12 @@ class Script
     @speaker = @level.dialogArray[@index].speaker
     if @speaker == 0
       @captainTxt.destroy()
-      @captainTxt =  @add.text(@pxyis_x, @pxyis_y, @level.dialogArray[@index].speech, { font: "18px Arial", fill: "#FFFF00", align: "center" })
+      @captainTxt =  @add.text(@pxyis_x, @pxyis_y, @level.dialogArray[@index].speech, @style)
     else if @speaker == 1
       @dogTxt.destroy()
-      @dogTxt =  @add.text(@dog_x, @dog_y, @level.dialogArray[@index].speech, { font: "18px Arial", fill: "#FFFF00", align: "center" })
+      @dogTxt =  @add.text(@dog_x, @dog_y, @level.dialogArray[@index].speech, @style)
     else
       @blueyTxt.destroy()
-      @blueyTxt =  @add.text(@bluey_x, @bluey_y, @level.dialogArray[@index].speech, { font: "18px Arial", fill: "#FFFF00", align: "center" })
+      @blueyTxt =  @add.text(@bluey_x, @bluey_y, @level.dialogArray[@index].speech, @style)
 
 module.exports = Script

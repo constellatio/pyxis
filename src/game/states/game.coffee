@@ -21,30 +21,28 @@ LEVELS = [
     arrowLocX:261,
     arrowLocY:187,
     starsArray: [
-        {x: 46, y: 275},
-        {x: 142, y: 200},
-        {x: 221, y: 201},
-        {x: 318, y: 193},
-        {x: 371, y: 252},
-        {x: 497, y: 189},
-        {x: 472, y: 97},
+        {x: 320, y: 95},
+        {x: 411, y: 98},
+        {x: 431, y: 211},
+        {x: 358, y: 234},
+        {x: 336, y: 311},
+        {x: 316, y: 380},
+        {x: 358, y: 469},
     ]
   },
   {
-    name: 'Bootes the Herdsman',
-    numStars: 8,
+    name: 'Boötes',
+    numStars: 6,
     startingStar: 0,
     arrowLocX:681,
     arrowLocY:446,
     starsArray: [
-        {x: 381, y: 409},
-        {x: 215, y: 286},
-        {x: 64, y: 182},
-        {x: 101, y: 31},
-        {x: 222, y: 52},
-        {x: 259, y: 210},
-        {x: 288, y: 544},        
-        {x: 519, y: 440},
+        {x: 586, y: 299},
+        {x: 676, y: 226},
+        {x: 132, y: 299},
+        {x: 70, y: 132},
+        {x: 197, y: 85},
+        {x: 333, y: 195},       
     ]
   },
   {
@@ -54,15 +52,17 @@ LEVELS = [
     arrowLocX:586,
     arrowLocY:481,
     starsArray: [
-        {x: 76, y: 222},
-        {x: 204, y: 266},
-        {x: 321, y: 372},
-        {x: 252, y: 485},
-        {x: 456, y: 287},
-        {x: 391, y: 188},
-        {x: 357, y: 30},        
-        {x: 561, y: 271},
-        {x: 648, y: 230},
+        {x: 380, y: 372},
+        {x: 289, y: 509},
+        {x: 90, y: 508},
+        {x: 175, y: 390},
+        {x: 237, y: 332},
+        {x: 254, y: 203},
+        {x: 166, y: 181},        
+        {x: 335, y: 289},
+        {x: 328, y: 187},
+        {x: 335, y: 118},
+        {x: 348, y: 32},
     ]
   },
   {
@@ -72,15 +72,15 @@ LEVELS = [
     arrowLocX:581,
     arrowLocY:156,
     starsArray: [
-        {x: 77, y: 262},
-        {x: 210, y: 175},
-        {x: 207, y: 256},
-        {x: 455, y: 307},
-        {x: 453, y: 231},
-        {x: 404, y: 185},
-        {x: 414, y: 125},        
-        {x: 497, y: 77},
-        {x: 528, y: 112},
+        {x: 525, y: 180},
+        {x: 410, y: 392},
+        {x: 376, y: 493},
+        {x: 345, y: 365},
+        {x: 454, y: 163},
+        {x: 402, y: 193},
+        {x: 358, y: 169},        
+        {x: 333, y: 91},
+        {x: 368, y: 71},
     ]
   },
   
@@ -125,7 +125,7 @@ class Game
     @constellation = []
     @levelcomplete = false
     @drawConstellation(@level)
-    @add.text(560, 595, @level.name, { font: "18px Arial", fill: "#FFFF00", align: "center" })
+    @add.text(500, 590, @level.name, { font: "24px Arial", fill: "#FFFF00", align: "center" })
     @player = @add.sprite x, y, 'player'
     @player.scale.set 0.5,0.5
 
