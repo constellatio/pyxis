@@ -11,5 +11,6 @@ window.onload = ->
   game.state.add 'menu', require './states/menu'
   game.state.add 'game', require './states/game'
   game.state.add 'story', require './states/story'
+  game.state.add 'script', require './states/script'
 
   game.state.start 'boot'
