@@ -75,18 +75,18 @@ class Script
 
 
     @player = @add.sprite 50, 395, 'player'
-    @pxyis = @add.sprite 50, 195, 'pxyis'
+    @pyxis = @add.sprite 50, 195, 'pyxis'
     @dog = @add.sprite 50, 295, 'dog'
 
-    @pxyis_x = 160
-    @pxyis_y = 195
+    @pyxis_x = 160
+    @pyxis_y = 195
     @dog_x = 260
     @dog_y = 295
     @bluey_x = 160
     @bluey_y = 395
 
     @style = { font: "18px sans-serif", fill: "#FFFF00", align: "center", wordWrap: true, wordWrapWidth: 450}
-    @captainTxt =  @add.text(@pxyis_x, @pxyis_y, "", @style)
+    @captainTxt =  @add.text(@pyxis_x, @pyxis_y, "", @style)
     @dogTxt =  @add.text(@dog_x, @dog_y, "", @style)
     @blueyTxt =  @add.text(@bluey_x, @bluey_y, "", @style)
     @index = 0
@@ -108,7 +108,7 @@ class Script
     @speaker = @level.dialogArray[@index].speaker
     if @speaker == 0
       @captainTxt.destroy()
-      @captainTxt =  @add.text(@pxyis_x, @pxyis_y, @level.dialogArray[@index].speech, @style)
+      @captainTxt =  @add.text(@pyxis_x, @pyxis_y, @level.dialogArray[@index].speech, @style)
     else if @speaker == 1
       @dogTxt.destroy()
       @dogTxt =  @add.text(@dog_x, @dog_y, @level.dialogArray[@index].speech, @style)

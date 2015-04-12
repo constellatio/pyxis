@@ -11,7 +11,7 @@ class Preloader
     @load.image 'player', 'assets/images/blue pirate.png'
     @load.image 'player2', 'assets/images/jon.png'
     @load.image 'player3', 'assets/images/jonr.png'
-    @load.image 'pxyis', 'assets/images/Pyxis.png'
+    @load.image 'pyxis', 'assets/images/Pyxis.png'
     @load.image 'dog', 'assets/images/Cabin Dog.png'
     @load.image 'cat', 'assets/images/cabin cat in helmet.png'
     @load.image 'robot', 'assets/images/Pirate Robot.png'
