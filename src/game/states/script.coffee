@@ -4,7 +4,15 @@ LEVELS = [
         {speech: "Who put out all the stars? I need to get back to base\n with all this loot.", speaker: 0},
         {speech: "Woof (I'm getting hungy)", speaker:1},
         {speech: "Can we use any of the other stars to find the way?\n I'm sure I've heard you can find lots of stars\n once you've found the Big Dipper.", speaker:2},
-        {speech: "Lets follow Mizar and Alkaid. \nThat takes us to a really bright star that's nearby.", speaker:0},
+        {speech: "Lets follow Mizar and Alkaid. \nThat takes us to a really bright star that's nearby.", speaker:0}
+    ]
+  }, 
+  {
+    dialogArray: [
+      {speech: "That's the Little Dipper completed. Where do we go next?", speaker: 0},
+      {speech: "Woof (What is a dipper anyway?)", speaker: 1},
+      {speech: "I'm sure there are some stars that point to the North Star. Let's try and find them.", speaker: 2},
+      {speech: "Full speed ahead!", speaker: 0}
     ]
   }
 ]
@@ -13,7 +21,7 @@ LEVELS = [
 class Script
       
   create: ->
-    @levelnum = 0
+    @levelnum = @game.currentLevel
     @level = LEVELS[@levelnum]
 
 
@@ -45,6 +53,7 @@ class Script
       @game.state.start 'game'
 
   nextDialog:  ->
+    console.log(@index)
     @speaker = @level.dialogArray[@index].speaker
     if @speaker == 0
       @captainTxt.destroy()

@@ -4,6 +4,7 @@ window.onload = ->
   Phaser = require 'phaser'
 
   game = new Phaser.Game 700, 700, Phaser.AUTO, 'constellations'
+  game.currentLevel = 0
 
   # Game States
   game.state.add 'boot', require './states/boot'
