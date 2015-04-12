@@ -88,7 +88,8 @@ class Game
     
 
   onDown: ->
-    if @levelcomplete
+    if @levelcomplete     
+       @map =  
        @levelnum++
        @drawLevel(@levelnum)
 
@@ -99,7 +100,8 @@ class Game
     y = @level.starsArray[@level.startingStar].y
 
     #add Sprites
-    @game.add.sprite 0, 0, 'background'
+    if not @backimage
+      @backImage = @game.add.sprite 0, 0, 'background'
     
     #Plot empty stars
     @constellation = []
@@ -149,6 +151,7 @@ class Game
      if won
      	@add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
      	@levelcomplete = true
+      @displayMap() 
 
      if @cursors.left.isDown
         @player.body.moveLeft(200)
@@ -172,5 +175,13 @@ class Game
         star.anchor.setTo 0.5, 0.5
         star.scale.set 0.5, 0.5
         @constellation.push(star)
+
+  displayMap: ->
+    if not @map
+      @map = @game.add.sprite 0, 0, 'starMap'
+      @map.alpha = 0
+      @backImage.alpha = 0
+      @game.add.tween(@map).to({alpha:1},1000,Phaser.Easing.Linear.Out,true)
+
 
 module.exports = Game
