@@ -46,10 +46,14 @@ LEVELS = [
   },
 ]
 
+PLAYERS = [
+  {sprite: 'player'},
+  {sprite: 'player2'},
+  {sprite: 'player3'}
+]
 
 class Game
 
-  @player = null 
   @successTxt = null
 
   create: ->
@@ -74,65 +78,68 @@ class Game
     @constellation = []
     @levelcomplete = false
     @drawConstellation(@level)
-    @player = @add.sprite x, y, 'player'
-    @player.anchor.setTo 0.5, 0.5
-    @player.scale.set 0.5,0.5
+
+    @game.physics.startSystem Phaser.Physics.Arcade
+
+    @players = []
+    for player in PLAYERS
+      @players.push @drawPlayer(player, x, y)
 
     #add sounds
     #@soundSputnik = @game.add.audio 'soundSputnik'
 
     #setup game input/output
-    #@input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
-
-    #setup game physics
-    @game.physics.startSystem Phaser.Physics.Arcade
-    @game.physics.enable(@player, Phaser.Physics.ARCADE)
-    #@game.physics.p2.enable @player
-    #@game.physics.p2.defaultRestitution = 0.8
-    #@player.body.fixedRotation = true
-    #@player.body.setZeroDamping()
+    controllers(@game, @players)
 
     @printed = false
 
-    controllers(@game, @player)
+
   update: ->
-     #@player.body.setZeroVelocity()
+    #@player.body.setZeroVelocity()
 
-     won = true
-     for star, i in @constellation
-         @xdistance = Math.abs(@player.x - star.x)
-         @ydistance = Math.abs(@player.y - star.y)
+    won = true
+    active = []
+    for star, i in @constellation
+        active[i] = false
 
-         if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
-            #if Player on star
+    for player in @players
+        for star, i in @constellation
+            @xdistance = Math.abs(player.x - star.x)
+            @ydistance = Math.abs(player.y - star.y)
+            if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
+                active[i] = true
+
+    for star, i in @constellation
+        if active[i]
+            # if a player on star
             if not star.active
                 @game.tweens.removeFrom(star)
                 @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
                 star.active = true
-         else
-            #if Player not on star
+        else
+            # no players on star
             if star.active
                 @game.tweens.removeFrom(star)
                 @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
                 star.active = false
 
-         if won
+        if won
             if star.alpha < 0.35
-               won = false
+                won = false
 
-     if won
+    if won
         @add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
         @levelcomplete = true
 
-     if @cursors.left.isDown
-        @player.body.x -= 4
-     else if @cursors.right.isDown
-        @player.body.x += 4
-     if @cursors.up.isDown
-        @player.body.y -= 4
-     else if @cursors.down.isDown
-        @player.body.y += 4
+    if @cursors.left.isDown
+        @players[0].body.x -= 4
+    else if @cursors.right.isDown
+        @players[0].body.x += 4
+    if @cursors.up.isDown
+        @players[0].body.y -= 4
+    else if @cursors.down.isDown
+        @players[0].body.y += 4
         #Plays A Sound
         #@soundSputnik.play()
 
@@ -147,5 +154,13 @@ class Game
         star.anchor.setTo 0.5, 0.5
         star.scale.set 0.5, 0.5
         @constellation.push(star)
+
+  drawPlayer: (player, x, y) ->
+    playerObj = @add.sprite x, y, player.sprite
+    playerObj.anchor.setTo 0.5, 0.5
+    playerObj.scale.set 0.5,0.5
+    @game.physics.enable(playerObj, Phaser.Physics.ARCADE)
+    return playerObj
+
 
 module.exports = Game

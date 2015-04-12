@@ -65,6 +65,19 @@
             rotated = x < 0;
             rotateMessage();
         }, false);
+
+        // var container = document.getElementById('container');
+        // function fullscreen() {
+        //     if (container.requestFullscreen) {
+        //         container.requestFullscreen();
+        //     } else if (container.webkitRequestFullScreen) {
+        //         container.webkitRequestFullScreen();
+        //     } else {
+        //         container.mozRequestFullScreen();
+        //     }
+        // }
+        // container.addEventListener("click", fullscreen)
+
     } else {
         message.innerHTML = 'Drag&nbsp;Me';
         var x = 0;
@@ -92,6 +105,8 @@
             clearInterval(emitter);
         }, false);
     }
+
+
 </script>
 </body>
 </html>

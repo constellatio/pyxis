@@ -1,14 +1,14 @@
 #io = require 'socket.io'
 
-connect = (game, player) ->
+connect = (game, players) ->
     socket = io.connect('http://' + window.host + ':8081')
     socket.emit('display', null)
-    CONTROLLERS = 1
+    CONTROLLERS = 3
     controllers = []
     lookup = {}
 
     for i in [0..CONTROLLERS]
-      controllers[i] = {x:game.width/2, y:game.height/2}
+      controllers[i] = null
 
     socket.on 'connected', (data) ->
       for i in [0..CONTROLLERS]
@@ -22,7 +22,7 @@ connect = (game, player) ->
       index = lookup[data.id]
       console.log 'Tilted:' + index + ' ' + data.x + ' ' + data.y
 
-      controller = controllers[0]  #index]
+      controller = controllers[index]  #index]
       # x = y because we're holding sideways!
       controller.x += data.y
       controller.y += data.x
@@ -35,7 +35,7 @@ connect = (game, player) ->
       #if index == 0
       #player.body.x = controller.x
       #player.body.y = controller.y
-      game.physics.arcade.moveToXY(player, controller.x, controller.y, 0, 100)
+      game.physics.arcade.moveToXY(players[index], controller.x, controller.y, 0, 100)
 
       #      particle = gl.getUniformLocation gl.shaderProgram, 'u_positions[' + (index + 1) + ']'
       #      gl.uniform2f particle, controller.x / gl.width, controller.y / gl.height
