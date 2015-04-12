@@ -14,5 +14,6 @@ window.onload = ->
   game.state.add 'story', require './states/story'
   game.state.add 'script', require './states/script'
   game.state.add 'postcard', require './states/postcard'
+  game.state.add 'next_constellation', require './states/next_constellation'
 
   game.state.start 'boot'

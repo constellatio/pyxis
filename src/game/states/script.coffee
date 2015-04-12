@@ -101,7 +101,7 @@ class Script
       @nextDialog()
       @index++
     else
-      @game.state.start 'game'
+      @game.state.start 'next_constellation'
 
   nextDialog:  ->
     console.log(@index)
