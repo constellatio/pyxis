@@ -29,8 +29,8 @@ LEVELS = [
     ]
   },
   {
-    name: 'The Plough',
-    numStars: 9,
+    name: 'Bootes the Herdsman',
+    numStars: 8,
     startingStar: 0,
     starsArray: [
         {x: 381, y: 409},
@@ -39,15 +39,47 @@ LEVELS = [
         {x: 101, y: 31},
         {x: 222, y: 52},
         {x: 259, y: 210},
-        {x: 288, y: 544},
-        {x: 481, y: 397},
+        {x: 288, y: 544},        
         {x: 519, y: 440},
+    ]
+  },
+  {
+    name: 'Virgo',
+    numStars: 9,
+    startingStar: 0,
+    starsArray: [
+        {x: 76, y: 222},
+        {x: 204, y: 266},
+        {x: 321, y: 372},
+        {x: 252, y: 485},
+        {x: 456, y: 287},
+        {x: 391, y: 188},
+        {x: 357, y: 30},        
+        {x: 561, y: 271},
+        {x: 648, y: 230},
+    ]
+  },
+  {
+    name: 'Leo',
+    numStars: 9,
+    startingStar: 0,
+    starsArray: [
+        {x: 77, y: 262},
+        {x: 210, y: 175},
+        {x: 207, y: 256},
+        {x: 455, y: 307},
+        {x: 453, y: 231},
+        {x: 404, y: 185},
+        {x: 414, y: 125},        
+        {x: 497, y: 77},
+        {x: 528, y: 112},
     ]
   },
 ]
 
 PLAYERS = [
   {sprite: 'player'},
+  {sprite: 'pyxis'},
   {sprite: 'player2'},
   {sprite: 'player3'}
 ]
@@ -57,9 +89,16 @@ class Game
   @successTxt = null
 
   create: ->
+    #Constants
     @levelnum = 0
+    @dimSpdConstant = 15000
+    @lightSpdConstant = 200
+    @starDimAlpha = 0.3
+    @starLitAlpha = 1
+
     @drawLevel(@levelnum)
     @input.onDown.add @onDown, this
+
 
   onDown: ->
     if @levelcomplete
@@ -74,10 +113,12 @@ class Game
 
     #add Sprites
     @game.add.sprite 0, 0, 'background'
+
     #Plot empty stars
     @constellation = []
     @levelcomplete = false
     @drawConstellation(@level)
+    @add.text(560, 595, @level.name, { font: "18px Arial", fill: "#FFFF00", align: "center" })
 
     @game.physics.startSystem Phaser.Physics.Arcade
 
@@ -85,8 +126,11 @@ class Game
     for player in PLAYERS
       @players.push @drawPlayer(player, x, y)
 
-    #add sounds
+     #add sounds
+    music = @game.add.audio ('backgroundSound')
     #@soundSputnik = @game.add.audio 'soundSputnik'
+
+    music.play()
 
     #setup game input/output
     @cursors = @game.input.keyboard.createCursorKeys()
@@ -140,6 +184,7 @@ class Game
         @players[0].body.y -= 4
     else if @cursors.down.isDown
         @players[0].body.y += 4
+
         #Plays A Sound
         #@soundSputnik.play()
 

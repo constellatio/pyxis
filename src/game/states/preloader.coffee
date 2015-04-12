@@ -11,12 +11,13 @@ class Preloader
     @load.image 'player', 'assets/images/blue pirate.png'
     @load.image 'player2', 'assets/images/jon.png'
     @load.image 'player3', 'assets/images/jonr.png'
+    @load.image 'pxyis', 'assets/images/Pyxis.png'
     @load.image 'background', 'assets/images/background.png'
     @load.image 'litstar', 'assets/images/lit.png'
     @load.image 'unlitstar', 'assets/images/unlit.png'
     @load.image 'star', 'assets/images/star.png'
     @load.image 'mainMenuImage', 'assets/images/pyxisStartScreen.png'
-    @load.audio 'soundSputnik', 'assets/sounds/sputnik.ogg'
+    @load.audio 'backgroundSound', 'assets/sounds/Background.ogg'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
 
   create: ->
