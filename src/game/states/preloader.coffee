@@ -16,6 +16,7 @@ class Preloader
     @load.image 'star', 'assets/images/star.png'
     @load.image 'starMap', 'assets/images/starMap.png'
     @load.image 'mainMenuImage', 'assets/images/pyxisStartScreen.png'
+    @load.image 'arrow', 'assets/images/arrow.png'
     @load.audio 'backgroundSound', 'assets/sounds/Background.ogg'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
     

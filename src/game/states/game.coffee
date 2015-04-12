@@ -3,6 +3,8 @@ LEVELS = [
     name: 'The Little Dipper',
     numStars: 7,
     startingStar: 0,
+    arrowLocX:97,
+    arrowLocY:168,
     starsArray: [
         {x: 309, y: 40},
         {x: 257, y: 125},
@@ -16,6 +18,8 @@ LEVELS = [
     name: 'The Big Dipper',
     numStars: 7,
     startingStar: 0,
+    arrowLocX:261,
+    arrowLocY:187,
     starsArray: [
         {x: 46, y: 275},
         {x: 142, y: 200},
@@ -30,6 +34,8 @@ LEVELS = [
     name: 'Bootes the Herdsman',
     numStars: 8,
     startingStar: 0,
+    arrowLocX:681,
+    arrowLocY:446,
     starsArray: [
         {x: 381, y: 409},
         {x: 215, y: 286},
@@ -45,6 +51,8 @@ LEVELS = [
     name: 'Virgo',
     numStars: 9,
     startingStar: 0,
+    arrowLocX:586,
+    arrowLocY:481,
     starsArray: [
         {x: 76, y: 222},
         {x: 204, y: 266},
@@ -61,6 +69,8 @@ LEVELS = [
     name: 'Leo',
     numStars: 9,
     startingStar: 0,
+    arrowLocX:581,
+    arrowLocY:156,
     starsArray: [
         {x: 77, y: 262},
         {x: 210, y: 175},
@@ -185,11 +195,12 @@ class Game
         @constellation.push(star)
 
   displayMap: ->
+    @level = LEVELS[@levelnum]
     if not @map
       @map = @game.add.sprite 0, 0, 'starMap'
       @map.alpha = 0
       @backImage.alpha = 0
       @game.add.tween(@map).to({alpha:1},1000,Phaser.Easing.Linear.Out,true)
-
+      @game.add.sprite @level.arrowLocX, @level.arrowLocY, 'arrow'
 
 module.exports = Game
