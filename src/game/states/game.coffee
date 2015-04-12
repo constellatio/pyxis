@@ -117,7 +117,7 @@ class Game
 
      #add sounds
     music = @game.add.audio ('backgroundSound')
-    #@soundSputnik = @game.add.audio 'soundSputnik'
+
     
     music.play() 
 
