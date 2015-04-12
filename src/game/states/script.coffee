@@ -15,18 +15,25 @@ class Script
   create: ->
     @levelnum = 0
     @level = LEVELS[@levelnum]
+
+
+    @player = @add.sprite 50, 395, 'player'
+    @pxyis = @add.sprite 50, 195, 'pxyis'
+
     @pxyis_x = 160
     @pxyis_y = 195
     @dog_x = 260
     @dog_y = 295
     @bluey_x = 160
     @bluey_y = 395
+
     @captainTxt =  @add.text(@pxyis_x, @pxyis_y, "", { font: "18px Arial", fill: "#FFFF00", align: "center" })
     @dogTxt =  @add.text(@dog_x, @dog_y, "", { font: "18px Arial", fill: "#FFFF00", align: "center" })
     @blueyTxt =  @add.text(@bluey_x, @bluey_y, "", { font: "18px Arial", fill: "#FFFF00", align: "center" })
     @index = 0
     @nextDialog()
     @index = 1
+
 
     @input.onDown.add @onDown, this
 
