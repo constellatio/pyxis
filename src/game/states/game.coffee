@@ -83,7 +83,7 @@ class Game
 
   create: ->
     #Constants
-    @levelnum = 0
+    @levelnum = @game.currentLevel
     @dimSpdConstant = 15000
     @lightSpdConstant = 200
     @starDimAlpha = 0.3
@@ -95,8 +95,8 @@ class Game
 
   onDown: ->
     if @levelcomplete
-       @levelnum++
-       @drawLevel(@levelnum)
+      @game.currentLevel++
+      @game.state.start 'script'
 
   drawLevel: (@levelnum) ->
     #setup game window
@@ -142,11 +142,11 @@ class Game
 
      	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
         #if Player on star
-             @game.add.tween(star).to({alpha:starLitAlpha},lightSpdConstant,Phaser.Easing.Quintic.Out,true)
+             @game.add.tween(star).to({alpha:@starLitAlpha},@lightSpdConstant,Phaser.Easing.Quintic.Out,true)
      	 else 
 
        #if Player not on star
-               @game.add.tween(star).to({alpha:starDimAlpha},dimSpdConstant,Phaser.Easing.Quintic.Out,true)
+               @game.add.tween(star).to({alpha:@starDimAlpha},@dimSpdConstant,Phaser.Easing.Quintic.Out,true)
                #@game.Tween.removeAllTweens()
      	 if won
      	    if star.alpha < 0.35
