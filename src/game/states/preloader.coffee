@@ -15,6 +15,8 @@ class Preloader
     @load.image 'litstar', 'assets/images/lit.png'
     @load.image 'unlitstar', 'assets/images/unlit.png'
     @load.image 'star', 'assets/images/star.png'
+    @load.image 'ursaminorpc', 'assets/images/Little Bear 2.png'
+    @load.image 'npc', 'assets/images/npc.png'
     @load.image 'starMap', 'assets/images/starMap.png'
     @load.image 'mainMenuImage', 'assets/images/pyxisStartScreen.png'
     @load.audio 'backgroundSound', 'assets/sounds/Background.ogg'    
@@ -25,6 +27,8 @@ class Preloader
     @load.audio 'starReveal', 'assets/sounds/star_reveal.ogg'
     @load.audio 'title', 'assets/sounds/title_screen.ogg'
     @load.audio 'levelComplete', 'assets/sounds/level_complete.ogg'
+    @load.image 'arrow', 'assets/images/arrow.png'
+    @load.audio 'backgroundSound', 'assets/sounds/Background.ogg'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
     
 

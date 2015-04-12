@@ -3,6 +3,8 @@ LEVELS = [
     name: 'The Little Dipper',
     numStars: 7,
     startingStar: 0,
+    arrowLocX:97,
+    arrowLocY:168,
     starsArray: [
         {x: 309, y: 40},
         {x: 257, y: 125},
@@ -16,6 +18,8 @@ LEVELS = [
     name: 'The Big Dipper',
     numStars: 7,
     startingStar: 0,
+    arrowLocX:261,
+    arrowLocY:187,
     starsArray: [
         {x: 320, y: 95},
         {x: 411, y: 98},
@@ -30,6 +34,8 @@ LEVELS = [
     name: 'Boötes',
     numStars: 6,
     startingStar: 0,
+    arrowLocX:681,
+    arrowLocY:446,
     starsArray: [
         {x: 586, y: 299},
         {x: 676, y: 226},
@@ -43,6 +49,8 @@ LEVELS = [
     name: 'Virgo',
     numStars: 9,
     startingStar: 0,
+    arrowLocX:586,
+    arrowLocY:481,
     starsArray: [
         {x: 380, y: 372},
         {x: 289, y: 509},
@@ -61,6 +69,8 @@ LEVELS = [
     name: 'Leo',
     numStars: 9,
     startingStar: 0,
+    arrowLocX:581,
+    arrowLocY:156,
     starsArray: [
         {x: 525, y: 180},
         {x: 410, y: 392},
@@ -96,9 +106,8 @@ class Game
 
     if @levelcomplete     
        @map = false 
-       @game.currentLevel++
        @drawLevel(@levelnum)      
-      @game.state.start 'script'
+       @game.state.start 'postcard'
 
 
   drawLevel: (@levelnum) ->
@@ -185,11 +194,12 @@ class Game
         @constellation.push(star)
 
   displayMap: ->
+    @level = LEVELS[@levelnum]
     if not @map
       @map = @game.add.sprite 0, 0, 'starMap'
       @map.alpha = 0
       @backImage.alpha = 0
       @game.add.tween(@map).to({alpha:1},1000,Phaser.Easing.Linear.Out,true)
-
+      @game.add.sprite @level.arrowLocX, @level.arrowLocY, 'arrow'
 
 module.exports = Game
