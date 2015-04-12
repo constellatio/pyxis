@@ -10,11 +10,11 @@ class Controllers extends EventEmitter
     @socket = io.connect('http://' + window.host + ':8081')
     @controllers = []
     @lookup = {}
-    for i in [0..CONTROLLERS]
+    for i in [0...CONTROLLERS]
       @controllers[i] = null
 
     @socket.on 'connected', (data) =>
-      for i in [0..CONTROLLERS]
+      for i in [0...CONTROLLERS]
         if @controllers[i] is null
           @controllers[i] = {x:game.width/2, y:game.height/2}
           @lookup[data.id] = i
