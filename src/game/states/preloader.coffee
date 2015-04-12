@@ -17,7 +17,14 @@ class Preloader
     @load.image 'star', 'assets/images/star.png'
     @load.image 'starMap', 'assets/images/starMap.png'
     @load.image 'mainMenuImage', 'assets/images/pyxisStartScreen.png'
-    @load.audio 'backgroundSound', 'assets/sounds/Background.ogg'
+    @load.audio 'backgroundSound', 'assets/sounds/Background.ogg'    
+    @load.audio 'backgroundSound2', 'assets/sounds/level2_background.ogg'
+    @load.audio 'backgroundSound3', 'assets/sounds/level3_background.ogg'
+    @load.audio 'backgroundSound4', 'assets/sounds/level4_background.ogg'
+    @load.audio 'backgroundSound5', 'assets/sounds/level5_background.ogg'
+    @load.audio 'starReveal', 'assets/sounds/star_reveal.ogg'
+    @load.audio 'title', 'assets/sounds/title_screen.ogg'
+    @load.audio 'levelComplete', 'assets/sounds/level_complete.ogg'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
     
 
