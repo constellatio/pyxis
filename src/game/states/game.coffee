@@ -69,6 +69,7 @@ class Game
     @levelnum = 0
     @drawLevel(@levelnum)
     @input.onDown.add @onDown, this
+    
 
   onDown: ->
     if @levelcomplete
@@ -82,7 +83,8 @@ class Game
     y = @level.starsArray[@level.startingStar].y
 
     #add Sprites
-    @game.add.sprite 0, 0, 'background'    
+    @game.add.sprite 0, 0, 'background'
+    
     #Plot empty stars
     @constellation = []
     @levelcomplete = false
@@ -91,8 +93,15 @@ class Game
     @player = @add.sprite x, y, 'player'
     @player.scale.set 0.5,0.5
 
-    #add sounds
+     #add sounds
+    music = @game.add.audio ('backgroundSound')
     #@soundSputnik = @game.add.audio 'soundSputnik'
+    music.addEventListener('ended', function()
+    {
+        this.currentTime = 0
+        this.play
+        }, false)
+    music.play() 
 
     #setup game input/output
     #@input.onDown.add @onInputDown, this
