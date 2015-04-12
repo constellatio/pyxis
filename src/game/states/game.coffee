@@ -57,6 +57,22 @@ LEVELS = [
         {x: 648, y: 230},
     ]
   },
+  {
+    name: 'Leo',
+    numStars: 9,
+    startingStar: 0,
+    starsArray: [
+        {x: 77, y: 262},
+        {x: 210, y: 175},
+        {x: 207, y: 256},
+        {x: 455, y: 307},
+        {x: 453, y: 231},
+        {x: 404, y: 185},
+        {x: 414, y: 125},        
+        {x: 497, y: 77},
+        {x: 528, y: 112},
+    ]
+  },
   
 ]
 
@@ -96,11 +112,7 @@ class Game
      #add sounds
     music = @game.add.audio ('backgroundSound')
     #@soundSputnik = @game.add.audio 'soundSputnik'
-    music.addEventListener('ended', function()
-    {
-        this.currentTime = 0
-        this.play
-        }, false)
+    
     music.play() 
 
     #setup game input/output
