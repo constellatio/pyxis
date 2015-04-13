@@ -101,7 +101,9 @@ class Script
       @nextDialog()
       @index++
     else
-      @game.state.start 'next_constellation'
+      # TODO enable game level selection
+      # @game.state.start 'next_constellation'
+      @game.state.start 'game'
 
   nextDialog:  ->
     console.log(@index)
