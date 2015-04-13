@@ -5,6 +5,8 @@ LEVELS = [
     name: 'The Little Dipper',
     numStars: 7,
     startingStar: 0,
+    arrowLocX:106,
+    arrowLocY:160,
     starsArray: [
         {x: 309, y: 40},
         {x: 257, y: 125},
@@ -18,30 +20,69 @@ LEVELS = [
     name: 'The Big Dipper',
     numStars: 7,
     startingStar: 0,
+    arrowLocX:285,
+    arrowLocY:180,
     starsArray: [
-        {x: 46, y: 275},
-        {x: 142, y: 200},
-        {x: 221, y: 201},
-        {x: 318, y: 193},
-        {x: 371, y: 252},
-        {x: 497, y: 189},
-        {x: 472, y: 97},
+        {x: 320, y: 95},
+        {x: 411, y: 98},
+        {x: 431, y: 211},
+        {x: 358, y: 234},
+        {x: 336, y: 311},
+        {x: 316, y: 380},
+        {x: 358, y: 469},
     ]
   },
   {
-    name: 'The Plough',
+    name: 'Boötes',
+    numStars: 6,
+    startingStar: 0,
+    arrowLocX:420,
+    arrowLocY:490,
+    starsArray: [
+        {x: 586, y: 299},
+        {x: 676, y: 226},
+        {x: 132, y: 299},
+        {x: 70, y: 132},
+        {x: 197, y: 85},
+        {x: 333, y: 195},       
+    ]
+  },
+  {
+    name: 'Virgo',
     numStars: 9,
     startingStar: 0,
+    arrowLocX:645,
+    arrowLocY:529,
     starsArray: [
-        {x: 381, y: 409},
-        {x: 215, y: 286},
-        {x: 64, y: 182},
-        {x: 101, y: 31},
-        {x: 222, y: 52},
-        {x: 259, y: 210},
-        {x: 288, y: 544},
-        {x: 481, y: 397},
-        {x: 519, y: 440},
+        {x: 380, y: 372},
+        {x: 289, y: 509},
+        {x: 90, y: 508},
+        {x: 175, y: 390},
+        {x: 237, y: 332},
+        {x: 254, y: 203},
+        {x: 166, y: 181},        
+        {x: 335, y: 289},
+        {x: 328, y: 187},
+        {x: 335, y: 118},
+        {x: 348, y: 32},
+    ]
+  },
+  {
+    name: 'Leo',
+    numStars: 9,
+    startingStar: 0,
+    arrowLocX:560,
+    arrowLocY:170,
+    starsArray: [
+        {x: 525, y: 180},
+        {x: 410, y: 392},
+        {x: 376, y: 493},
+        {x: 345, y: 365},
+        {x: 454, y: 163},
+        {x: 402, y: 193},
+        {x: 358, y: 169},        
+        {x: 333, y: 91},
+        {x: 368, y: 71},
     ]
   },
 ]
@@ -53,26 +94,50 @@ class Game
   @successTxt = null
 
   create: ->
+    #Constants
+    @levelnum = @game.currentLevel
+    @dimSpdConstant = 15000
+    @lightSpdConstant = 200
+    @starDimAlpha = 0.3
+    @starLitAlpha = 1
+
+    @drawLevel(@levelnum)
+    @input.onDown.add @onDown, this
+
+  onDown: ->
+
+    if @levelcomplete     
+       @map = false 
+       @drawLevel(@levelnum)      
+       @game.state.start 'postcard'
+
+
+  drawLevel: (@levelnum) ->
     #setup game window
-    @levelnum = 0
     @level = LEVELS[@levelnum]
     x = @level.starsArray[@level.startingStar].x
     y = @level.starsArray[@level.startingStar].y
 
     #add Sprites
-    @game.add.sprite 0, 0, 'background'
+    if not @backimage
+      @backImage = @game.add.sprite 0, 0, 'background'
+    
     #Plot empty stars
     @constellation = []
     @levelcomplete = false
     @drawConstellation(@level)
+    @add.text(500, 590, @level.name, { font: "24px Arial", fill: "#FFFF00", align: "center" })
     @player = @add.sprite x, y, 'player'
     @player.scale.set 0.5,0.5
 
-    #add sounds
-    #@soundSputnik = @game.add.audio 'soundSputnik'
+     #add sounds
+    music = @game.add.audio ('backgroundSound')
+
+    
+    music.play() 
 
     #setup game input/output
-    @input.onDown.add @onInputDown, this
+    #@input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
 
     #setup game physics
@@ -95,19 +160,21 @@ class Game
      	 @ydistance = Math.abs(@player.y - star.y)
 
      	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
-        #if Player on star
-     	       @game.add.tween(star).to({alpha:1},200,Phaser.Easing.Quintic.Out,true)
+         #if Player on star
+               @game.add.tween(star).to({alpha:@starLitAlpha},@lightSpdConstant,Phaser.Easing.Quintic.Out,true)
      	 else
-       #if Player not on star
 
-     	       @game.add.tween(star).to({alpha:0.1},15000,Phaser.Easing.Quintic.Out,true)
+         #if Player not on star
+               @game.add.tween(star).to({alpha:@starDimAlpha},@dimSpdConstant,Phaser.Easing.Quintic.Out,true)
+               #@game.Tween.removeAllTweens()
      	 if won
      	    if star.alpha < 0.35
      	       won = false
 
      if won
-     	@add.text(10, 10, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
+     	@add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
      	@levelcomplete = true
+      @displayMap() 
 
      if @cursors.left.isDown
         @player.body.x -= 5
@@ -120,12 +187,6 @@ class Game
         #Plays A Sound
         #@soundSputnik.play()
 
-
-  onInputDown: ->
-    @game.state.start 'menu'
-
-
-
   drawConstellation: (level) ->
      console.log @constellation
      for star, i in level.starsArray
@@ -137,5 +198,15 @@ class Game
         star.anchor.setTo 0.5, 0.5
         star.scale.set 0.5, 0.5
         @constellation.push(star)
+
+  displayMap: ->
+    @level = LEVELS[@levelnum]
+    if not @map
+      @map = @game.add.sprite 0, 0, 'starMap'
+      @map.alpha = 0
+      @backImage.alpha = 0
+      @game.add.tween(@map).to({alpha:1},1000,Phaser.Easing.Linear.Out,true)
+      @hereArrow = @game.add.sprite @level.arrowLocX, @level.arrowLocY, 'arrow'
+      @hereArrow.anchor.setTo 0.5, 1
 
 module.exports = Game

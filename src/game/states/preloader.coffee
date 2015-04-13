@@ -9,11 +9,26 @@ class Preloader
     @load.onLoadComplete.addOnce @onLoadComplete, this
     @load.setPreloadSprite @asset
     @load.image 'player', 'assets/images/blue pirate.png'
+    @load.image 'pxyis', 'assets/images/Pyxis.png'
+    @load.image 'dog', 'assets/images/Cabin Dog.png'
     @load.image 'background', 'assets/images/background.png'
     @load.image 'litstar', 'assets/images/lit.png'
     @load.image 'unlitstar', 'assets/images/unlit.png'
     @load.image 'star', 'assets/images/star.png'
-    @load.audio 'soundSputnik', 'assets/sounds/sputnik.ogg'
+    @load.image 'ursaminorpc', 'assets/images/Little Bear 2.png'
+    @load.image 'npc', 'assets/images/npc.png'
+    @load.image 'starMap', 'assets/images/starMap.png'
+    @load.image 'mainMenuImage', 'assets/images/pyxisStartScreen.png'
+    @load.audio 'backgroundSound', 'assets/sounds/Background.ogg'    
+    @load.audio 'backgroundSound2', 'assets/sounds/level2_background.ogg'
+    @load.audio 'backgroundSound3', 'assets/sounds/level3_background.ogg'
+    @load.audio 'backgroundSound4', 'assets/sounds/level4_background.ogg'
+    @load.audio 'backgroundSound5', 'assets/sounds/level5_background.ogg'
+    @load.audio 'starReveal', 'assets/sounds/star_reveal.ogg'
+    @load.audio 'title', 'assets/sounds/title_screen.ogg'
+    @load.audio 'levelComplete', 'assets/sounds/level_complete.ogg'
+    @load.image 'arrow', 'assets/images/arrow.png'
+    @load.audio 'backgroundSound', 'assets/sounds/Background.ogg'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
 
   create: ->
