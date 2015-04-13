@@ -1,5 +1,3 @@
-controllers = require './controllers'
-
 LEVELS = [
   {
     name: 'The Little Dipper',
@@ -87,10 +85,17 @@ LEVELS = [
   },
 ]
 
+PLAYERS = [
+  {sprite: 'player'},
+  {sprite: 'pyxis'},
+  {sprite: 'dog'},
+  {sprite: 'cat'},
+  #{sprite: 'player2'},
+  #{sprite: 'player3'}
+]
 
 class Game
 
-  @player = null 
   @successTxt = null
 
   create: ->
@@ -108,7 +113,6 @@ class Game
 
     if @levelcomplete     
        @map = false 
-       @drawLevel(@levelnum)      
        @game.state.start 'postcard'
 
 
@@ -121,69 +125,78 @@ class Game
     #add Sprites
     if not @backimage
       @backImage = @game.add.sprite 0, 0, 'background'
-    
+
     #Plot empty stars
     @constellation = []
     @levelcomplete = false
     @drawConstellation(@level)
     @add.text(500, 590, @level.name, { font: "24px Arial", fill: "#FFFF00", align: "center" })
-    @player = @add.sprite x, y, 'player'
-    @player.scale.set 0.5,0.5
+
+    @game.physics.startSystem Phaser.Physics.Arcade
+
+    @players = []
+    for player in PLAYERS
+      @players.push @drawPlayer(player, x, y)
 
      #add sounds
     music = @game.add.audio ('backgroundSound')
-
-    
     music.play() 
 
     #setup game input/output
-    #@input.onDown.add @onInputDown, this
     @cursors = @game.input.keyboard.createCursorKeys()
-
-    #setup game physics
-    @game.physics.startSystem Phaser.Physics.Arcade
-    @game.physics.enable(@player, Phaser.Physics.ARCADE)
-    #@game.physics.p2.enable @player
-    #@game.physics.p2.defaultRestitution = 0.8
-    #@player.body.fixedRotation = true
-    #@player.body.setZeroDamping()
+    console.log 'registering for controllers'
+    window.controllers.removeAllListeners()
+    window.controllers.on 'move', (player, x, y) =>
+      @game.physics.arcade.moveToXY(@players[player], x, y, 0, 100)
 
     @printed = false
 
-    controllers(@game, @player)
+
   update: ->
-     #@player.body.setZeroVelocity()
+    won = true
+    active = []
+    for star, i in @constellation
+        active[i] = false
 
-     won = true
-     for star, i in @constellation
-     	 @xdistance = Math.abs(@player.x - star.x)
-     	 @ydistance = Math.abs(@player.y - star.y)
+    for player in @players
+        for star, i in @constellation
+            @xdistance = Math.abs(player.x - star.x)
+            @ydistance = Math.abs(player.y - star.y)
+            if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
+                active[i] = true
 
-     	 if (@xdistance < 20 && @ydistance < 20) || @levelcomplete
-         #if Player on star
-               @game.add.tween(star).to({alpha:@starLitAlpha},@lightSpdConstant,Phaser.Easing.Quintic.Out,true)
-     	 else
+    for star, i in @constellation
+        if active[i]
+            # if a player on star
+            if not star.active
+                @game.tweens.removeFrom(star)
+                @game.add.tween(star).to({alpha:@starLitAlpha},@lightSpdConstant,Phaser.Easing.Quintic.Out,true)
+                star.active = true
+        else
+            # no players on star
+            if star.active
+                @game.tweens.removeFrom(star)
+                @game.add.tween(star).to({alpha:@starDimAlpha},@dimSpdConstant,Phaser.Easing.Quintic.Out,true)
+                star.active = false
 
-         #if Player not on star
-               @game.add.tween(star).to({alpha:@starDimAlpha},@dimSpdConstant,Phaser.Easing.Quintic.Out,true)
-               #@game.Tween.removeAllTweens()
-     	 if won
-     	    if star.alpha < 0.35
-     	       won = false
+        if won
+            if star.alpha < 0.35
+                won = false
 
-     if won
-     	@add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
-     	@levelcomplete = true
-      @displayMap() 
+    if won
+        @add.text(230, 4, "Congratulations! Level Complete!", { font: "15px Arial", fill: "#ff0044", align: "center" })
+        @levelcomplete = true
+        @displayMap()
 
-     if @cursors.left.isDown
-        @player.body.x -= 5
-     else if @cursors.right.isDown
-        @player.body.x += 5
-     if @cursors.up.isDown
-        @player.body.y -= 5
-     else if @cursors.down.isDown
-        @player.body.y += 5
+    if @cursors.left.isDown
+        @players[0].body.x -= 4
+    else if @cursors.right.isDown
+        @players[0].body.x += 4
+    if @cursors.up.isDown
+        @players[0].body.y -= 4
+    else if @cursors.down.isDown
+        @players[0].body.y += 4
+
         #Plays A Sound
         #@soundSputnik.play()
 
@@ -208,5 +221,12 @@ class Game
       @game.add.tween(@map).to({alpha:1},1000,Phaser.Easing.Linear.Out,true)
       @hereArrow = @game.add.sprite @level.arrowLocX, @level.arrowLocY, 'arrow'
       @hereArrow.anchor.setTo 0.5, 1
+
+  drawPlayer: (player, x, y) ->
+    playerObj = @add.sprite x, y, player.sprite
+    playerObj.anchor.setTo 0.5, 0.5
+    playerObj.scale.set 0.5,0.5
+    @game.physics.enable(playerObj, Phaser.Physics.ARCADE)
+    return playerObj
 
 module.exports = Game

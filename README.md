@@ -1,13 +1,17 @@
-# Constellations
+# Pyxis
 
 A local multiplayer game for Space Apps 2015
 
 ## Basic Setup
 
-The template for this app was created using https://github.com/dschwertfeger/generator-phaser-coffee-gulp
+Checkout the repo:
 
-    sudo npm install -g yo gulp generator-phaser-coffee-gulp
-    chown -R <your user name> ~/.npm
-    mkdir constellations
-    cd constellations
-    yo phaser-coffee-gulp
+    npm install
+    npm install -g gulp
+
+## To Run
+
+In different command windows, or terminals, run:
+
+    npm start
+    gulp
