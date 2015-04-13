@@ -68,7 +68,7 @@ LEVELS = [
 
 
 class Script
-      
+
   create: ->
     @levelnum = @game.currentLevel
     @level = LEVELS[@levelnum]
@@ -101,18 +101,24 @@ class Script
       @nextDialog()
       @index++
     else
-      @game.state.start 'game'
+      @game.state.start 'next_constellation'
 
   nextDialog:  ->
     console.log(@index)
     @speaker = @level.dialogArray[@index].speaker
     if @speaker == 0
       @captainTxt.destroy()
+      @dogTxt.destroy()
+      @blueyTxt.destroy()
       @captainTxt =  @add.text(@pyxis_x, @pyxis_y, @level.dialogArray[@index].speech, @style)
     else if @speaker == 1
+      @captainTxt.destroy()
       @dogTxt.destroy()
+      @blueyTxt.destroy()
       @dogTxt =  @add.text(@dog_x, @dog_y, @level.dialogArray[@index].speech, @style)
     else
+      @captainTxt.destroy()
+      @dogTxt.destroy()
       @blueyTxt.destroy()
       @blueyTxt =  @add.text(@bluey_x, @bluey_y, @level.dialogArray[@index].speech, @style)
 
